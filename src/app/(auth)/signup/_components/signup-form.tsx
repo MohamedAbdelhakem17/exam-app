@@ -39,7 +39,7 @@ export default function SignupForm() {
                 <FormField
                     control={form.control}
                     name="email"
-                    render={({ ...field }) => (
+                    render={({ field }) => (
                         <FormItem>
                             {/* Label */}
                             <FormLabel>Email</FormLabel>

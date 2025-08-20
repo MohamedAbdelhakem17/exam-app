@@ -10,22 +10,41 @@ import {
 } from "@/components/ui/form";
 
 import { MainButton } from "@/components/shared";
-import { AuthLink, PasswordInput } from "../../_components";
+import { AuthLink, ApiError, PasswordInput } from "../../_components";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
+import { loginSchema, LoginValues } from "@/lib/schemes/auth.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
 
 export default function SigninForm() {
-    const form = useForm({
+
+    const [apiError, setApiError] = useState<string>("")
+
+    const form = useForm<LoginValues>({
         defaultValues: {
             email: "",
             password: "",
         },
+        resolver: zodResolver(loginSchema)
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const onSubmit = (values: any) => {
-        console.log("Form submitted:", values);
+    const onSubmit: SubmitHandler<LoginValues> = async (data) => {
+        const response = await signIn("credentials", {
+            email: data?.email,
+            password: data?.password,
+            redirect: false
+        })
+
+        if (response?.error) {
+            setApiError(response.error)
+            return
+        }
+
+        location.href = new URLSearchParams(location.search).get("callbackUrl") || "/"
+        console.log(response)
     };
 
     return (
@@ -33,19 +52,19 @@ export default function SigninForm() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
                 {/* Email */}
                 <FormField
-                    control={form.control}
                     name="email"
-                    render={({ ...field }) => (
+                    control={form.control}
+                    render={({ field }) => (
                         <FormItem>
                             {/* Label */}
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel className="text-gray-800">Email</FormLabel>
 
                             {/* Field */}
                             <FormControl>
                                 <Input
                                     placeholder="user@example.com"
                                     {...field}
-                                    className="border-gray-200 rounded-none shadow-none"
+                                    className="border-gray-200 rounded-none shadow-none aria-[invalid=true]:border-destructive"
                                 />
                             </FormControl>
 
@@ -57,16 +76,16 @@ export default function SigninForm() {
 
                 {/* Password */}
                 <FormField
-                    control={form.control}
                     name="password"
+                    control={form.control}
                     render={({ field }) => (
                         <FormItem>
                             {/* Label */}
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel className="text-gray-800">Password</FormLabel>
 
                             {/* Field */}
                             <FormControl>
-                                <PasswordInput {...field} />
+                                <PasswordInput {...field} className="" />
                             </FormControl>
 
                             {/* Feedback */}
@@ -84,7 +103,7 @@ export default function SigninForm() {
                 />
 
                 {/* Error */}
-                {/* {error && <ApiError>{error.message}</ApiError> } */}
+                {apiError && <ApiError>{apiError}</ApiError>}
 
                 {/* Submit */}
                 <MainButton>Login</MainButton>
