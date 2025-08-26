@@ -9,8 +9,7 @@ import {
     Form,
 } from "@/components/ui/form";
 
-import { MainButton } from "@/components/shared";
-import { AuthLink, ApiError, PasswordInput } from "../../_components";
+import { AuthLink, ApiError } from "../../_components";
 import { Input } from "@/components/ui/input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
@@ -18,6 +17,7 @@ import { loginSchema, LoginValues } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function SigninForm() {
 
@@ -47,6 +47,8 @@ export default function SigninForm() {
         console.log(response)
     };
 
+    const { isValid, isSubmitted } = form.formState;
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
@@ -57,14 +59,14 @@ export default function SigninForm() {
                     render={({ field }) => (
                         <FormItem>
                             {/* Label */}
-                            <FormLabel className="text-gray-800">Email</FormLabel>
+                            <FormLabel >Email</FormLabel>
 
                             {/* Field */}
                             <FormControl>
                                 <Input
+                                    type="email"
                                     placeholder="user@example.com"
                                     {...field}
-                                    className="border-gray-200 rounded-none shadow-none aria-[invalid=true]:border-destructive"
                                 />
                             </FormControl>
 
@@ -81,11 +83,15 @@ export default function SigninForm() {
                     render={({ field }) => (
                         <FormItem>
                             {/* Label */}
-                            <FormLabel className="text-gray-800">Password</FormLabel>
+                            <FormLabel >Password</FormLabel>
 
                             {/* Field */}
                             <FormControl>
-                                <PasswordInput {...field} className="" />
+                                <Input
+                                    type="password"
+                                    placeholder="********"
+                                    {...field}
+                                />
                             </FormControl>
 
                             {/* Feedback */}
@@ -93,10 +99,9 @@ export default function SigninForm() {
 
                             <Link
                                 href="/forgot-password"
-                                className="block mt-3 mb-4 text-sm font-medium text-blue-600 text-end"
+                                className="block mt-3 mb-4 text-sm font-medium text-blue-600 text-end select-none"
                             >
-                                {" "}
-                                Forgot your password?{" "}
+                                Forgot your password?
                             </Link>
                         </FormItem>
                     )}
@@ -106,7 +111,7 @@ export default function SigninForm() {
                 {apiError && <ApiError>{apiError}</ApiError>}
 
                 {/* Submit */}
-                <MainButton>Login</MainButton>
+                <Button disabled={isSubmitted && !isValid}>Login</Button>
 
                 {/* Create Account */}
                 <AuthLink
@@ -118,3 +123,5 @@ export default function SigninForm() {
         </Form>
     );
 }
+
+

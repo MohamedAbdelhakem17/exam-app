@@ -1,9 +1,10 @@
 import {
-	FolderCode,
+	// FolderCode,
 	BookOpenCheck,
 	Brain,
 	RectangleEllipsis,
 } from "lucide-react";
+import Image from "next/image";
 
 const FEATURES = [
 	{
@@ -39,7 +40,8 @@ export default function AuthContent() {
 
 				{/* Header */}
 				<header className="flex items-center gap-2 mb-36">
-					<FolderCode className="w-10 h-10 p-1 fill-blue-600 stroke-white" />
+					{/* <FolderCode className="w-10 h-10 p-1 fill-blue-600 stroke-white" /> */}
+					<Image src="/icons/folder-code.svg" alt="Folder Code" width={20} height={20} className="w-10 h-10 p-1" />
 					<span className="text-xl font-semibold text-blue-600">Exam App</span>
 				</header>
 
@@ -57,7 +59,7 @@ export default function AuthContent() {
 							const Icon = item.Icon;
 							return (
 								<li key={index} className="flex items-start gap-6">
-									<div className="flex items-center justify-center p-1 border-2 border-blue-600 rounded-lg h-9 w-9">
+									<div className="flex items-center justify-center p-1 border-2 border-blue-600  h-9 w-9">
 										<Icon className="w-6 h-6 text-blue-600" />
 									</div>
 									<div>
