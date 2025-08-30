@@ -1,5 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { REQUEST_HEADERS } from "./lib/constants/request-headers.constant";
+import { RegisterResponse } from "./lib/types/auth";
 
 export const authOption: NextAuthOptions = {
   pages: {
@@ -14,11 +16,25 @@ export const authOption: NextAuthOptions = {
         password: {},
       },
       authorize: async (credentials) => {
-        console.log(credentials);
+        const url = process.env.BASE_API_URL + "/auth/signin"
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            ...REQUEST_HEADERS
+          },
+          body: JSON.stringify({ email: credentials?.email, password: credentials?.password })
+        })
 
-        // throw new Error("Error in Loin");
+        const payload: ApiResponse<RegisterResponse> = await response.json();
+
+        if ("code" in payload) {
+          throw new Error(payload.message)
+        }
+
         return {
-            id:"2"
+          id: payload.user._id,
+          token: payload.token,
+          ...payload.user
         };
       },
     }),
@@ -27,13 +43,23 @@ export const authOption: NextAuthOptions = {
   callbacks: {
     jwt: ({ token, user }) => {
       if (user) {
+        token = {
+          ...token,
+          ...user
+        }
       }
       return token;
     },
 
     session: ({ session, token }) => {
       if (session.user?.email) {
-        session.user.email = token.email;
+        session.email = token.email || "";
+        session.firstName = token.firstName;
+        session.lastName = token.lastName;
+        session.username = token.username;
+        session.role = token.role;
+        session.phone = token.phone;
+        session._id = token._id;
       }
 
       return session;

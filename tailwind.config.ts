@@ -9,6 +9,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      width: {
+        lg: "28.625rem",
+        "md": "22.625rem"
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

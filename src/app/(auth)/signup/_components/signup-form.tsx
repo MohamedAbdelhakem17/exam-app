@@ -11,28 +11,42 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AuthLink } from "../../_components";
+import { ApiError, AuthLink } from "../../_components";
 import { Button } from "@/components/ui/button";
 import { PhoneInput } from "./phone-input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, RegisterValues } from "@/lib/schemes/auth.schema";
+import useRegister from "../_hooks/use-register";
+import { AppToaster } from "@/components/shared";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
+    // mutation hook
+    const { isPending, error, register } = useRegister();
+
+    const router = useRouter()
+
     const form = useForm<RegisterValues>({
         defaultValues: {
             firstName: "",
             lastName: "",
-            userName: "",
+            username: "",
             email: "",
             phone: "",
             password: "",
-            confirmPassword: ""
+            rePassword: ""
         },
         resolver: zodResolver(registerSchema)
     });
 
     const onSubmit: SubmitHandler<RegisterValues> = (data) => {
-        console.log("Form submitted:", data);
+        register(data, {
+            onSuccess: () => {
+                toast.custom(() => <AppToaster massage={"Registration completed successfully. You can now log in."} />);
+                setTimeout(() => (router.push("/signin")), 1200);
+            }
+        },);
     };
 
     const { formState: { errors, isValid, isSubmitted } } = form
@@ -95,7 +109,7 @@ export default function SignupForm() {
                 {/* user name */}
                 <FormField
                     control={form.control}
-                    name="userName"
+                    name="username"
                     render={({ field }) => (
                         <FormItem>
                             {/* Label */}
@@ -150,8 +164,9 @@ export default function SignupForm() {
                             {/* Field */}
                             <FormControl>
                                 <PhoneInput
-                                    type="tel"
-                                    placeholder="1012345678"
+                                    type="text"
+
+                                    placeholder="01012345678"
                                     error={!!errors.phone}
                                     {...field}
                                 />
@@ -190,7 +205,7 @@ export default function SignupForm() {
                 {/* Confirm Password */}
                 <FormField
                     control={form.control}
-                    name="confirmPassword"
+                    name="rePassword"
                     render={({ field }) => (
                         <FormItem>
                             {/* Label */}
@@ -212,10 +227,10 @@ export default function SignupForm() {
                 />
 
                 {/* Error */}
-                {/* {error && <ApiError>{error.message}</ApiError> } */}
+                {error && <ApiError>{error.message}</ApiError>}
 
                 {/* Submit */}
-                <Button disabled={!isValid && isSubmitted}>Create Account</Button>
+                <Button disabled={(!isValid && isSubmitted) || isPending}>Create Account</Button>
 
 
                 {/* Login  */}

@@ -26,7 +26,7 @@ export const registerSchema = z
       .string("Last name must be a string")
       .nonempty("Last name is required"),
 
-    userName: z
+    username: z
       .string("Username must be a string")
       .nonempty("Username is required"),
 
@@ -46,14 +46,34 @@ export const registerSchema = z
         "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character."
       ),
 
-    confirmPassword: z
+    rePassword: z
       .string()
       .nonempty("Confirm password is required")
       .min(8, "Min 8 characters"),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.rePassword, {
     message: "Passwords don't match",
     path: ["confirmPassword"],
   });
 
 export type RegisterValues = z.infer<typeof registerSchema>;
+
+// Forgot Password Step Schema
+export const forgotPasswordSchema = registerSchema.pick({ email: true })
+
+export type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>
+
+// Verify OTP
+export const otpSchema = z.object({
+  resetCode: z.string().min(6, { message: "Your one‑time password must be 6 characters." }),
+});
+export type OtpValues = z.infer<typeof otpSchema>;
+
+// Create Password Step Schema 
+export const createPasswordSchema = registerSchema.pick({
+  password: true,
+  rePassword: true,
+  email: true
+})
+
+export type CreatePasswordValues = z.infer<typeof createPasswordSchema>

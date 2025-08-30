@@ -12,12 +12,12 @@ import {
 import { AuthLink, ApiError } from "../../_components";
 import { Input } from "@/components/ui/input";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Link from "next/link";
 import { loginSchema, LoginValues } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { handelGoToForgotPassword } from "../../_actions/auth.action";
 
 export default function SigninForm() {
 
@@ -49,15 +49,19 @@ export default function SigninForm() {
 
     const { isValid, isSubmitted } = form.formState;
 
+    const goToForgotPassword = async () => {
+        await handelGoToForgotPassword();
+    };
+
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 ">
                 {/* Email */}
                 <FormField
                     name="email"
                     control={form.control}
                     render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="mb-4">
                             {/* Label */}
                             <FormLabel >Email</FormLabel>
 
@@ -97,12 +101,13 @@ export default function SigninForm() {
                             {/* Feedback */}
                             <FormMessage />
 
-                            <Link
-                                href="/forgot-password"
-                                className="block mt-3 mb-4 text-sm font-medium text-blue-600 text-end select-none"
+                            <button
+                                onClick={goToForgotPassword}
+                                type="button"
+                                className="block mt-3 mb-4 text-sm font-medium text-blue-600 text-end select-none ms-auto"
                             >
                                 Forgot your password?
-                            </Link>
+                            </button>
                         </FormItem>
                     )}
                 />
@@ -111,7 +116,7 @@ export default function SigninForm() {
                 {apiError && <ApiError>{apiError}</ApiError>}
 
                 {/* Submit */}
-                <Button disabled={isSubmitted && !isValid}>Login</Button>
+                <Button disabled={isSubmitted && !isValid} className="mt-10 mb-9">Login</Button>
 
                 {/* Create Account */}
                 <AuthLink

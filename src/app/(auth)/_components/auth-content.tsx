@@ -1,5 +1,5 @@
 import {
-	// FolderCode,
+	FolderCode,
 	BookOpenCheck,
 	Brain,
 	RectangleEllipsis,
@@ -40,8 +40,8 @@ export default function AuthContent() {
 
 				{/* Header */}
 				<header className="flex items-center gap-2 mb-36">
-					{/* <FolderCode className="w-10 h-10 p-1 fill-blue-600 stroke-white" /> */}
-					<Image src="/icons/folder-code.svg" alt="Folder Code" width={20} height={20} className="w-10 h-10 p-1" />
+					<FolderCode className="w-10 h-10 p-1 fill-blue-600 stroke-white" />
+					{/* <Image src="/icons/folder-code.svg" alt="Folder Code" width={20} height={20} className="w-10 h-10 p-1" /> */}
 					<span className="text-xl font-semibold text-blue-600">Exam App</span>
 				</header>
 
