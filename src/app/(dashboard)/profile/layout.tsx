@@ -1,4 +1,3 @@
-import SideBar from "./_components/side-bar";
 
 export default function RootLayout({
   children,
@@ -8,10 +7,9 @@ export default function RootLayout({
   return (
     <main className="min-h-screen flex">
       {/* Side content */}
-      <SideBar />
       {/* Main content */}
 
-      <section className="ml-xxl px-6 flex-1">
+      <section className="ml-xxl px-6">
         {children}
       </section>
     </main>

@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      spacing: {
+        "xxl": "22.625rem"
+      },
       width: {
         lg: "28.625rem",
         "md": "22.625rem"
