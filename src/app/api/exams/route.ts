@@ -1,6 +1,6 @@
-import { REQUEST_HEADERS } from '@/lib/constants/request-headers.constant';
-import { getToken } from 'next-auth/jwt';
-import { NextResponse, NextRequest } from 'next/server';
+import { getToken } from "next-auth/jwt";
+import { NextResponse, NextRequest } from "next/server";
+import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
 
 export async function GET(req: NextRequest) {
     const token = await getToken({ req });
@@ -12,22 +12,26 @@ export async function GET(req: NextRequest) {
     const params = req.nextUrl.searchParams;
     const limit = params.get("limit");
     const page = params.get("page");
+    const subject = params.get("subject");
 
-    const url = `${process.env.BASE_API_URL}/subjects?limit=${limit}&page=${page}`;
-
+    const url = `${process.env.BASE_API_URL}/exams?limit=${limit}&page=${page}&subject=${subject}`;
 
     const response = await fetch(url, {
         method: "GET",
         headers: {
             token: token?.token,
-            ...REQUEST_HEADERS,
-        },
-    });
+            ...REQUEST_HEADERS
+        }
+    })
 
+    console.log(response)
     if (response.status !== 200) {
         return NextResponse.json({ error: "Failed to fetch subjects" }, { status: response.status });
     }
 
-    const payload = await response.json();
+
+    const payload = await response.json()
+
     return NextResponse.json(payload);
+
 }

@@ -16,6 +16,9 @@ const config: Config = {
         lg: "28.625rem",
         "md": "22.625rem"
       },
+      height: {
+        lg :"30rem"
+      } ,
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

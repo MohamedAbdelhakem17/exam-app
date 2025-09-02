@@ -1,7 +1,11 @@
 'use client'
 
+import Image from "next/image"
 import useSubjects from "../_hooks/use-subjects"
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
+import Link from "next/link"
+import { ChevronDown } from "lucide-react"
 
 export default function SubjectsCard() {
     const {
@@ -14,46 +18,60 @@ export default function SubjectsCard() {
         isLoading
     } = useSubjects()
 
-    if (isError) return <div>حدث خطأ: {error?.message}</div>
-    if (isLoading) return <h2>جاري التحميل...</h2>
-
     const allSubjects = data?.pages.flatMap(page => page.subjects) || []
 
     return (
         <div className="w-full">
-            <h2 className="text-xl font-bold mb-4">المواد الدراسية</h2>
 
             {/* Container with fixed height and scrollable area */}
-            <div
-                id="scrollableDiv"
-                className=" overflow-auto flex flex-col border rounded p-4"
-            >
-                <InfiniteScroll
-                    dataLength={allSubjects.length}
-                    next={fetchNextPage}
-                    hasMore={hasNextPage || false}
-                    loader={<h4 className="text-center">جاري التحميل...</h4>}
-                    endMessage={
-                        <p className="text-center mt-4">
-                            <b>لقد وصلت للنهاية</b>
-                        </p>
-                    }
-                    style={{ display: 'flex', flexDirection: 'column' }}
-                    inverse={true}
-                    scrollableTarget="scrollableDiv"
-                >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                        {allSubjects.map(subject => (
-                            <div
-                                key={subject._id}
-                                className="h-[220px] py-2 rounded-md border border-sky-300 w-full text-center flex items-center justify-center"
-                            >
-                                <h2>{subject.name}</h2>
-                            </div>
-                        ))}
+
+
+            <InfiniteScroll
+                dataLength={allSubjects.length} //This is important field to render the next data
+                next={fetchNextPage}
+                hasMore={hasNextPage || false}
+                loader={
+                    <div className="flex items-center flex-col justify-center text-gray-600 p-2.5 gap-1 mt-6 text-base">
+                        <p>Scroll to view more</p>
+                        <ChevronDown />
+                    </div>}
+                endMessage={
+                    <div className="flex items-center flex-col justify-center text-gray-600 p-2.5 gap-1 mt-6 text-base">
+                        <p>End of list</p>
                     </div>
-                </InfiniteScroll>
-            </div>
-        </div>
+                }
+                pullDownToRefreshThreshold={10}
+                pullDownToRefreshContent={
+                    <h3 style={{ textAlign: 'center' }}>&#8595; Scroll to view more</h3>
+                }
+                releaseToRefreshContent={
+                    <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+                }
+            >
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {allSubjects.map(subject => (
+                        <Link href={`/${subject._id}`} key={subject._id}>
+                            <Card className="col-span-1 relative overflow-hidden" >
+                                <CardContent className="p-0">
+                                    <Image
+                                        src={subject.icon}
+                                        alt={subject.name}
+                                        width={336}
+                                        height={448}
+                                        className="h-96  w-full"
+                                    />
+
+                                </CardContent>
+                                <CardFooter className="absolute bg-blue-500/50 backdrop-blur-md bottom-3 start-3 end-3 py-5 px-4">
+                                    <CardTitle className="text-xl text-white">
+                                        {subject.name}
+                                    </CardTitle>
+                                </CardFooter>
+                            </Card>
+                        </Link>
+                    ))}
+                </div>
+            </InfiniteScroll>
+        </div >
     )
 }

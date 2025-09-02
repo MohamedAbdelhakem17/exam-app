@@ -9,9 +9,9 @@ export default function RootLayout({
     <main className="min-h-screen flex">
       {/* Side content */}
       <SideBar />
-      {/* Main content */}
 
-      <section className="ml-xxl px-6 flex-1">
+      {/* Main content */}
+      <section className="ml-xxl flex-1">
         {children}
       </section>
     </main>
