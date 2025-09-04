@@ -4,7 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 export default function useExams({ subject }: { subject: string }) {
     // Get Exam Functions 
     const getExams = async (page: number = 1) => {
-        const apiUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/api/exams?subject=${subject}&page=${page}`
+        const apiUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/api/exams?subject=${subject}&page=${page}&limit=40`
 
         const response = await fetch(apiUrl, {
             method: "GET",

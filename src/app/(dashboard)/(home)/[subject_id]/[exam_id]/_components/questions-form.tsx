@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { SubmitHandler, useForm } from "react-hook-form"
-import {  useState } from "react"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -126,28 +126,31 @@ export default function MultiQuestionForm({ data }: { data: ExamData }) {
             )}
           />
 
+          {/* Actions */}
           <div className="flex justify-between items-center gap-4">
-            <Button
-              type="button"
-              variant="secondary"
-              disabled={currentIndex === 0}
-              onClick={() => {
-                setCurrentIndex(prev => prev - 1)
-                form.reset({
-                  answer: answers.answers.find(a => a.questionId === questions[currentIndex - 1]._id)?.correct || ""
-                })
-              }}
+
+            {/* Previous Button */}
+            <Button type="button" variant="secondary" disabled={currentIndex === 0} onClick={() => {
+              setCurrentIndex(prev => prev - 1)
+              form.reset({
+                answer: answers.answers.find(a => a.questionId === questions[currentIndex - 1]._id)?.correct || ""
+              })
+            }}
             >
               <ChevronLeft />
               Previous
             </Button>
 
+            {/* Timer */}
             <ExamTimer duration={Number(duration)} />
+
+            {/* Submit and Next Button */}
             <Button type="submit" disabled={isSubmitting || !form.getValues("answer")}>
               {currentIndex === questions.length - 1 ? "Finish" : "Next"}
               <ChevronRight />
             </Button>
           </div>
+
         </form>
       </Form>
     </section>

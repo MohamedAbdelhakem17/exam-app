@@ -11,11 +11,7 @@ export default function SubjectsCard() {
     const {
         data,
         fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-        isError,
-        error,
-        isLoading
+        hasNextPage
     } = useSubjects()
 
     const allSubjects = data?.pages.flatMap(page => page.subjects) || []
@@ -27,7 +23,7 @@ export default function SubjectsCard() {
 
 
             <InfiniteScroll
-                dataLength={allSubjects.length} //This is important field to render the next data
+                dataLength={allSubjects.length} 
                 next={fetchNextPage}
                 hasMore={hasNextPage || false}
                 loader={
@@ -59,6 +55,7 @@ export default function SubjectsCard() {
                                         width={336}
                                         height={448}
                                         className="h-96  w-full"
+                                        priority
                                     />
 
                                 </CardContent>
