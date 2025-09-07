@@ -24,8 +24,10 @@ export async function checkQuestions(data: AnswerCheck) {
   return payload;
 }
 
-// Handel go to Exam Result
-export async function handelGoToExamResult() {
+/**
+ * @summary Mark exam as completed by setting a cookie.
+ */
+export async function handleGoToExamResult() {
   cookies().set("examCompleted", "true", {
     httpOnly: true,
     path: "/",
@@ -33,6 +35,9 @@ export async function handelGoToExamResult() {
   });
 }
 
-export async function handelTryAgain() {
+/**
+ * @summary Clear the exam completion cookie.
+ */
+export async function handleExamResult() {
   cookies().delete("examCompleted");
 }

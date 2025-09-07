@@ -21,7 +21,7 @@ import ExamTimer from "./exam-timer";
 import useCheckQuestions from "../_hooks/use-check-questions";
 import { ApiError } from "@/app/(auth)/_components";
 import { useQuestions } from "../_hooks/use-questions";
-import { handelGoToExamResult } from "../_actions/check-questions.action";
+import { handleGoToExamResult } from "../_actions/check-questions.action";
 import { usePathname, useRouter } from "next/navigation";
 
 export default function QuestionForm({ data }: { data: ExamData }) {
@@ -61,7 +61,7 @@ export default function QuestionForm({ data }: { data: ExamData }) {
       { answers, time: Number(duration) },
       {
         onSuccess: async (res) => {
-          await handelGoToExamResult();
+          await handleGoToExamResult();
 
           localStorage.setItem("examResult", JSON.stringify(res));
           sessionStorage.removeItem("answers");
