@@ -28,6 +28,6 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: "Failed to fetch subjects" }, { status: response.status });
     }
 
-    const payload = await response.json();
+    const payload: ApiResponse<SubjectsResponse> = await response.json();
     return NextResponse.json(payload);
 }

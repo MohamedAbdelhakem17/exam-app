@@ -14,7 +14,10 @@ export default function SubjectsCard() {
         hasNextPage
     } = useSubjects()
 
-    const allSubjects = data?.pages.flatMap(page => page.subjects) || []
+    const allSubjects = data?.pages.flatMap(page =>
+        "subjects" in page ? page.subjects : []
+    ) || [];
+
 
     return (
         <div className="w-full">
@@ -23,7 +26,7 @@ export default function SubjectsCard() {
 
 
             <InfiniteScroll
-                dataLength={allSubjects.length} 
+                dataLength={allSubjects.length}
                 next={fetchNextPage}
                 hasMore={hasNextPage || false}
                 loader={
@@ -45,7 +48,7 @@ export default function SubjectsCard() {
                 }
             >
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    {allSubjects.map(subject => (
+                    {allSubjects.map((subject: Subject) => (
                         <Link href={`/${subject._id}`} key={subject._id}>
                             <Card className="col-span-1 relative overflow-hidden" >
                                 <CardContent className="p-0">

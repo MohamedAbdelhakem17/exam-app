@@ -17,8 +17,11 @@ const config: Config = {
         "md": "22.625rem"
       },
       height: {
-        lg :"30rem"
-      } ,
+        lg: "30rem",
+      },
+      maxHeight: {
+        answer: "32.125rem",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -71,7 +74,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"),  require('tailwind-scrollbar')],
 };
 
 export default config;

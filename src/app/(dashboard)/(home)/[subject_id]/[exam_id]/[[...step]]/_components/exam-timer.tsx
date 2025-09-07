@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react"
 
-export default function ExamTimer({ duration }: { duration: number }) {
+export default function ExamTimer({ duration, examSubmit }: { duration: number, examSubmit: () => void }) {
     const [remainingSeconds, setRemainingSeconds] = useState(() => {
         const saved = sessionStorage.getItem("examTime")
         return saved ? Number(saved) : duration * 60
@@ -12,6 +12,7 @@ export default function ExamTimer({ duration }: { duration: number }) {
             setRemainingSeconds((prev) => {
                 if (prev <= 1) {
                     clearInterval(timer)
+                    examSubmit()
                     return 0
                 }
                 const updated = prev - 1
@@ -21,9 +22,10 @@ export default function ExamTimer({ duration }: { duration: number }) {
         }, 1000)
 
         return () => {
-            sessionStorage.removeItem("examTime")
+            // sessionStorage.removeItem("examTime")
             clearInterval(timer)
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const minutes = Math.floor(remainingSeconds / 60)

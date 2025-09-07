@@ -5,7 +5,6 @@ import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
 export async function GET(req: NextRequest) {
     const token = await getToken({ req });
 
-    console.log(req)
     if (!token?.token) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -25,12 +24,7 @@ export async function GET(req: NextRequest) {
         }
     })
 
-    if (response.status !== 200) {
-        return NextResponse.json({ error: "Failed to fetch subjects" }, { status: response.status });
-    }
-
-
-    const payload = await response.json()
+    const payload: ApiResponse<ExamResponse> = await response.json()
 
     return NextResponse.json(payload);
 

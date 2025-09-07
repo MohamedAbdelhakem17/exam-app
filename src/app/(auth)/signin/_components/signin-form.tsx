@@ -44,7 +44,6 @@ export default function SigninForm() {
         }
 
         location.href = new URLSearchParams(location.search).get("callbackUrl") || "/"
-        console.log(response)
     };
 
     const { isValid, isSubmitted } = form.formState;

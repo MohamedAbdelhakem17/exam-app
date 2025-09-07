@@ -5,7 +5,6 @@ export default function useSubjects() {
 
     // get subjects function 
     const getSubjects = async (page: number = 1) => {
-        // console.log("page Number ", page)
         const apiUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/api/subjects?limit=6&page=${page}`
         const response = await fetch(apiUrl, {
             method: "GET",
@@ -14,16 +13,17 @@ export default function useSubjects() {
             }
         })
 
-        const payload = await response.json()
+        const payload: ApiResponse<SubjectsResponse> = await response.json()
         return payload
     }
 
     // Use Infinite Query Setup
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError, error ,  isLoading } = useInfiniteQuery({
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError, error, isLoading } = useInfiniteQuery({
         queryKey: ["subjects"],
         queryFn: ({ pageParam = 1 }) => getSubjects(pageParam),
         initialPageParam: 1,
         getNextPageParam: (lastPage) => {
+            if ("code" in lastPage) return undefined
             const hasNextPage = Boolean(lastPage.metadata.nextPage)
             if (hasNextPage)
                 return lastPage.metadata.nextPage
@@ -31,5 +31,5 @@ export default function useSubjects() {
         },
     });
 
-    return { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError, error , isLoading};
+    return { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError, error, isLoading };
 }

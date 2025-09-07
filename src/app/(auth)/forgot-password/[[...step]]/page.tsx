@@ -25,6 +25,8 @@ export default function ForgotPasswordPage({ params }: ForgotPasswordPageProps) 
     "create-password": <CreatePassword />,
   };
 
+
+
   return (
     <section className="flex flex-col items-center justify-center">
       {STEPS_MAP[CURRENT_STEP]}
