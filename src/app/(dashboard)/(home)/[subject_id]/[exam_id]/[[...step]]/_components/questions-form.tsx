@@ -156,7 +156,7 @@ export default function QuestionForm({ data }: { data: ExamData }) {
 
           {/* Exam timer  */}
           <ExamTimer
-            duration={Number(0.5)}
+            duration={Number(duration)}
             examSubmit={() => console.log("")}
           />
 

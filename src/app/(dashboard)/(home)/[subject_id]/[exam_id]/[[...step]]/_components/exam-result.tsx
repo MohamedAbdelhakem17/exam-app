@@ -45,6 +45,7 @@ export default function ExamResult() {
     sessionStorage.clear();
     localStorage.clear();
   };
+
   const handelRestartExam = async () => {
     await handleExamResult();
     cleanStorage();
