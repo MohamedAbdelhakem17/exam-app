@@ -65,7 +65,7 @@ export default function ExamResult() {
       try {
         setExamResult(JSON.parse(saved));
       } catch (error) {
-        console.error("Invalid JSON in examResult:", error);
+        void error;
       }
     }
   }, []);

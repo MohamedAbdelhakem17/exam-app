@@ -92,3 +92,18 @@ export const editUserDataSchema = registerSchema.pick({
 });
 
 export type EditUserDataValues = z.infer<typeof editUserDataSchema>;
+
+// Edit user password
+export const editUserPasswordSchema = registerSchema
+  .pick({
+    password: true,
+    rePassword: true,
+  })
+  .extend({
+    oldPassword: z
+      .string()
+      .nonempty("Current password is required")
+      .min(8, "Min 8 characters"),
+  });
+
+export type EditUserPasswordValues = z.infer<typeof editUserPasswordSchema>;

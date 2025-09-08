@@ -16,38 +16,49 @@ export const authOption: NextAuthOptions = {
         password: {},
       },
       authorize: async (credentials) => {
-        const url = process.env.BASE_API_URL + "/auth/signin"
+        const url = process.env.BASE_API_URL + "/auth/signin";
         const response = await fetch(url, {
           method: "POST",
           headers: {
-            ...REQUEST_HEADERS
+            ...REQUEST_HEADERS,
           },
-          body: JSON.stringify({ email: credentials?.email, password: credentials?.password })
-        })
+          body: JSON.stringify({
+            email: credentials?.email,
+            password: credentials?.password,
+          }),
+        });
 
         const payload: ApiResponse<RegisterResponse> = await response.json();
 
         if ("code" in payload) {
-          throw new Error(payload.message)
+          throw new Error(payload.message);
         }
 
         return {
           id: payload.user._id,
           token: payload.token,
-          ...payload.user
+          ...payload.user,
         };
       },
     }),
   ],
 
   callbacks: {
-    jwt: ({ token, user }) => {
+    jwt: ({ token, user, trigger, session }) => {
       if (user) {
         token = {
           ...token,
-          ...user
-        }
+          ...user,
+        };
       }
+
+      if (trigger === "update" && session) {
+        token = {
+          ...token,
+          ...session,
+        };
+      }
+
       return token;
     },
 

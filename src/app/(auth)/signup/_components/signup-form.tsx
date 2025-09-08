@@ -45,7 +45,7 @@ export default function SignupForm() {
       onSuccess: () => {
         toast.custom(() => (
           <AppToaster
-            massage={"Registration completed successfully. You can now log in."}
+            message={"Registration completed successfully. You can now log in."}
           />
         ));
         setTimeout(() => router.push("/signin"), 1200);

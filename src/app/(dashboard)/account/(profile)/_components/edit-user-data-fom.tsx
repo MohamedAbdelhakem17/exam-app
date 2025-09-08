@@ -19,6 +19,12 @@ import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/app/(auth)/signup/_components/phone-input";
 import { Button } from "@/components/ui/button";
 import { parsePhoneNumber } from "react-phone-number-input";
+import useEditProfile from "../../_hooks/use-edit-profile";
+import { ApiError } from "@/app/(auth)/_components";
+import { toast } from "sonner";
+import { AppToaster } from "@/components/shared";
+import { useSession } from "next-auth/react";
+import DeleteUserAccount from "./delete-user-account";
 
 type FormProps = {
   userData: {
@@ -31,6 +37,13 @@ type FormProps = {
 };
 
 export default function EditUserDataForm({ userData }: FormProps) {
+  // hooks
+  const { data: session, update: updateSession } = useSession();
+
+  // mutation
+  const { editProfile, isPending, error } = useEditProfile();
+
+  // form and validating
   const form = useForm<EditUserDataValues>({
     defaultValues: {
       username: userData?.username,
@@ -43,10 +56,21 @@ export default function EditUserDataForm({ userData }: FormProps) {
   });
 
   const onSubmit: SubmitHandler<EditUserDataValues> = (data) => {
-    console.log("Updated user data:", data);
+    editProfile(data, {
+      onSuccess: async (res) => {
+        await updateSession({
+          ...session,
+          ...res.user,
+        });
+
+        toast.custom(() => (
+          <AppToaster message={"Data updated completed successfully."} />
+        ));
+      },
+    });
   };
 
-  const { errors } = form.formState;
+  const { errors, isValid, isSubmitted } = form.formState;
 
   return (
     <Form {...form}>
@@ -138,10 +162,23 @@ export default function EditUserDataForm({ userData }: FormProps) {
           )}
         />
 
-        {/* Submit button */}
-        <Button type="submit" className="w-full">
-          Save Changes
-        </Button>
+        {/* Api  feedback */}
+        {error && <ApiError>{error?.message}</ApiError>}
+
+        {/* Actions */}
+        <div className="flex items-center justify-center gap-3.5">
+          {/* Delete account */}
+          <DeleteUserAccount />
+
+          {/* Submit button */}
+          <Button
+            type="submit"
+            className="flex-1"
+            disabled={(isSubmitted && !isValid) || isPending}
+          >
+            Save Changes
+          </Button>
+        </div>
       </form>
     </Form>
   );
