@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 import ProfileMenu from "./profile-menu";
 
-type LinkType = {
+export type LinkType = {
   path: string;
   label: string;
   Icon: ForwardRefExoticComponent<
@@ -54,7 +54,11 @@ export default function Menu() {
       {/* Links */}
       <ul>
         {LINKS.map((link, index) => {
-          const isActive = pathname === link.path;
+          const isActive =
+            link.path === "/"
+              ? pathname === "/" || !pathname.startsWith("/account")
+              : pathname.startsWith(link.path);
+
           return (
             <li key={index}>
               <MenuLinks {...link} isActive={isActive} />
