@@ -1,3 +1,3 @@
 export default function ChangePasswordPage() {
-  return <div>ChangePasswordPage</div>;
+  return <div></div>;
 }

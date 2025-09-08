@@ -10,11 +10,13 @@ const config: Config = {
   theme: {
     extend: {
       spacing: {
-        "xxl": "22.625rem"
+        xxl: "22.625rem",
+        "side-top": "11.5625rem",
       },
+
       width: {
         lg: "28.625rem",
-        "md": "22.625rem"
+        md: "22.625rem",
       },
       height: {
         lg: "30rem",
@@ -74,7 +76,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"),  require('tailwind-scrollbar')],
+  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
 };
 
 export default config;

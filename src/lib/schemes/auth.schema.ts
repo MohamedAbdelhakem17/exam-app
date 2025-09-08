@@ -35,7 +35,9 @@ export const registerSchema = z
       .nonempty("Email is required")
       .email("Invalid email address"),
 
-    phone: z.string().refine(isValidPhoneNumber, { message: "Invalid phone number" }),
+    phone: z
+      .string()
+      .refine(isValidPhoneNumber, { message: "Invalid phone number" }),
 
     password: z
       .string()
@@ -59,21 +61,34 @@ export const registerSchema = z
 export type RegisterValues = z.infer<typeof registerSchema>;
 
 // Forgot Password Step Schema
-export const forgotPasswordSchema = registerSchema.pick({ email: true })
+export const forgotPasswordSchema = registerSchema.pick({ email: true });
 
-export type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>
+export type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>;
 
 // Verify OTP
 export const otpSchema = z.object({
-  resetCode: z.string().min(6, { message: "Your one‑time password must be 6 characters." }),
+  resetCode: z
+    .string()
+    .min(6, { message: "Your one‑time password must be 6 characters." }),
 });
 export type OtpValues = z.infer<typeof otpSchema>;
 
-// Create Password Step Schema 
+// Create Password Step Schema
 export const createPasswordSchema = registerSchema.pick({
   password: true,
   rePassword: true,
-  email: true
-})
+  email: true,
+});
 
-export type CreatePasswordValues = z.infer<typeof createPasswordSchema>
+export type CreatePasswordValues = z.infer<typeof createPasswordSchema>;
+
+// Edit User Data
+export const editUserDataSchema = registerSchema.pick({
+  email: true,
+  username: true,
+  lastName: true,
+  firstName: true,
+  phone: true,
+});
+
+export type EditUserDataValues = z.infer<typeof editUserDataSchema>;
