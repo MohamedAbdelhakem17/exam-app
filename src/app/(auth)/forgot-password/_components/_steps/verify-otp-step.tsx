@@ -24,29 +24,32 @@ import { useRouter } from "next/navigation";
 import BackLink from "../back-link";
 
 export default function VerifyOTP() {
-  // Retrieve user's email from sessionStorage
-  const userEmail = sessionStorage.getItem("email");
+  // Navigation
   const router = useRouter();
 
-  // use mutation
-  const { isPending, error, verifyOtp } = useVerifyOtp();
-  const { error: resendOtpError, sendOtp } = useSendOtp();
-
-  // Initialize timer
+  // State
   const [timer, setTimer] = useState<number>(() => {
     const storeTime = sessionStorage.getItem("otp-timer");
     return storeTime ? parseInt(storeTime) : 60;
   });
 
+  // Mutation
+  const { isPending, error, verifyOtp } = useVerifyOtp();
+  const { error: resendOtpError, sendOtp } = useSendOtp();
+
+  // From and validation
   const form = useForm<OtpValues>({
     defaultValues: { resetCode: "" },
+
     resolver: zodResolver(otpSchema),
   });
 
+  // Functions
   const onSubmit: SubmitHandler<OtpValues> = (data) => {
     verifyOtp(data, {
       onSuccess: () => {
         sessionStorage.setItem("otpVerified", "true");
+
         toast.custom(
           () => (
             <AppToaster message="otp verify successfully reset your password now" />
@@ -55,59 +58,61 @@ export default function VerifyOTP() {
             duration: 1000,
           }
         );
+
         setTimeout(() => router.push("/forgot-password/create-password"), 1200);
       },
     });
   };
 
-  // Function to update timer in both sessionStorage and local state
   const updateTimer = (time: number) => {
     sessionStorage.setItem("otp-timer", time.toString());
+
     setTimer(time);
   };
 
-  // Function to resend OTP
   const resendOTP = async (email: string) => {
     sendOtp(
       { email },
+
       {
         onSuccess: (response) => {
           toast.custom(() => <AppToaster message={response as string} />, {
             duration: 1000,
           });
+
           updateTimer(60);
         },
       }
     );
   };
 
-  // handle countdown timer
-  useEffect(() => {
-    if (!sessionStorage.getItem("otp-timer")) {
-      sessionStorage.setItem("otp-timer", "60");
-    }
-    const countDown = setInterval(() => {
-      const storeTime = sessionStorage.getItem("otp-timer");
-      const time = storeTime ? parseInt(storeTime) : 60;
-      if (time <= 0) {
-        clearInterval(countDown);
-        setTimer(0);
-        return;
-      }
-      const newTime = time - 1;
-      updateTimer(newTime);
-    }, 1000);
-    return () => clearInterval(countDown);
-  }, [timer]);
-
+  // Variables
+  const userEmail = sessionStorage.getItem("email");
   const {
     isValid,
     isSubmitted,
     errors: { resetCode },
   } = form.formState;
 
+  // Effects
+  useEffect(() => {
+    if (timer <= 0) return;
+
+    const countDown = setInterval(() => {
+      setTimer((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+
+    return () => clearInterval(countDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem("otp-timer", timer.toString());
+  }, [timer]);
+
   return (
     <>
+      {/* Navigate to forgot password step */}
       <BackLink path="/forgot-password" />
 
       <FormLayout label="Verify OTP" resetPassword={true}>
@@ -119,6 +124,7 @@ export default function VerifyOTP() {
         {/* Show user email and allow editing */}
         <p className="text-sm mb-10">
           <span>{userEmail}.</span>
+
           <Link
             href="/forgot-password"
             className="text-blue-600 underline font-medium"
@@ -129,11 +135,10 @@ export default function VerifyOTP() {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            {/* OTP inout  */}
+            {/* OTP Field  */}
             <FormField
               control={form.control}
               name="resetCode"
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               render={({ field }) => (
                 <FormItem>
                   {/* Input */}
@@ -143,6 +148,7 @@ export default function VerifyOTP() {
                       pattern={REGEXP_ONLY_DIGITS}
                       {...field}
                     >
+                      {/* Input slots */}
                       {Array.from({ length: 6 }).map((_, index) => (
                         <InputOTPSlot
                           key={index}
@@ -161,8 +167,11 @@ export default function VerifyOTP() {
 
             {/* Timer countdown or resend option */}
             {timer === 0 ? (
+              //  if available to resend code
+              // description
               <p className="text-sm font-medium text-gray-600 text-center mt-6">
-                Didn’t receive the code?{" "}
+                Didn’t receive the code?
+                {/* Resend Code Action */}
                 <span
                   className="text-blue-600 cursor-pointer"
                   onClick={() => resendOTP(userEmail as string)}
@@ -171,11 +180,13 @@ export default function VerifyOTP() {
                 </span>
               </p>
             ) : (
+              // if not available to resend code
               <p className="text-sm font-medium text-gray-600 text-center mt-6">
                 You can request another code in: {timer}s
               </p>
             )}
 
+            {/* Api feedback */}
             {(resendOtpError || error) && (
               <ApiError>
                 {(resendOtpError?.message as string) ||

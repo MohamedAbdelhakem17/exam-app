@@ -3,28 +3,31 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-    const token = await getToken({ req })
+  const token = await getToken({ req });
 
-    if (!token) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-    const exam = req.nextUrl.searchParams.get("exam")
-    const url = `${process.env.BASE_API_URL}/questions?exam=${exam}`;
+  if (!token) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
-    const response = await fetch(url, {
-        method: "GET",
-        headers: {
-            ...REQUEST_HEADERS,
-            token: token.token
-        }
-    })
+  const exam = req.nextUrl.searchParams.get("exam");
+  const url = `${process.env.BASE_API_URL}/questions?exam=${exam}`;
 
-    if (response.status !== 200) {
-        return NextResponse.json({ error: "Failed to fetch questions" }, { status: response.status });
-    }
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      ...REQUEST_HEADERS,
+      token: token.token,
+    },
+  });
 
+  if (response.status !== 200) {
+    return NextResponse.json(
+      { error: "Failed to fetch questions" },
+      { status: response.status }
+    );
+  }
 
-    const payload = await response.json()
-    return NextResponse.json(payload)
+  const payload = await response.json();
 
+  return NextResponse.json(payload);
 }

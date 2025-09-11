@@ -1,3 +1,3 @@
 export const REQUEST_HEADERS = {
-    "Content-Type": "application/json",
-} as const
+  "Content-Type": "application/json",
+} as const;

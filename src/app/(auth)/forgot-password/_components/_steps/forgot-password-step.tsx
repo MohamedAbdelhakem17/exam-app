@@ -23,10 +23,13 @@ import { AppToaster } from "@/components/shared";
 import { useRouter } from "next/navigation";
 
 export default function ForgotPasswordStep() {
+  // Navigation
   const router = useRouter();
-  //use Mutation
 
+  // Mutation
   const { error, isPending, sendOtp } = useSendOtp();
+
+  // Form and validation
   const form = useForm<ForgotPasswordValues>({
     defaultValues: {
       email: sessionStorage.getItem("email") || "",
@@ -35,18 +38,22 @@ export default function ForgotPasswordStep() {
     resolver: zodResolver(forgotPasswordSchema),
   });
 
+  // Functions
   const onSubmit: SubmitHandler<ForgotPasswordValues> = async (data) => {
     sendOtp(data, {
       onSuccess: (response) => {
         sessionStorage.setItem("email", data.email);
+
         toast.custom(() => <AppToaster message={response as string} />, {
           duration: 1000,
         });
+
         setTimeout(() => router.push("/forgot-password/verify-otp"), 1200);
       },
     });
   };
 
+  // Variables
   const { isValid, isSubmitted } = form.formState;
 
   return (
@@ -82,7 +89,7 @@ export default function ForgotPasswordStep() {
             )}
           />
 
-          {/* Error */}
+          {/* Api feedback */}
           {error && <ApiError>{error.message}</ApiError>}
 
           {/* Submit */}

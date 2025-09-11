@@ -24,20 +24,24 @@ import { useEffect } from "react";
 import BackLink from "../back-link";
 
 export default function CreatePasswordStep() {
+  // Navigation
   const router = useRouter();
 
-  // use mutation
+  //  mutation
   const { isPending, error, resetPassword } = useResetPassword();
 
+  // Form and validation
   const form = useForm<CreatePasswordValues>({
     defaultValues: {
       password: "",
       rePassword: "",
       email: sessionStorage.getItem("email") || "",
     },
+
     resolver: zodResolver(createPasswordSchema),
   });
 
+  // Functions
   const onSubmit: SubmitHandler<CreatePasswordValues> = async (data) => {
     await resetPassword(data, {
       onSuccess: () => {
@@ -47,7 +51,9 @@ export default function CreatePasswordStep() {
           ),
           { duration: 1000 }
         );
+
         sessionStorage.clear();
+
         setTimeout(() => {
           location.href = "/signin";
         }, 1200);
@@ -55,15 +61,16 @@ export default function CreatePasswordStep() {
     });
   };
 
+  // Variables
   const { isValid, isSubmitted } = form.formState;
 
+  // Effects
   useEffect(() => {
     const isVerified = sessionStorage.getItem("otpVerified");
 
     if (isVerified !== "true") {
       router.replace("/forgot-password");
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -119,7 +126,7 @@ export default function CreatePasswordStep() {
               )}
             />
 
-            {/* Error */}
+            {/* Api feedback */}
             {error && <ApiError>{error.message}</ApiError>}
 
             {/* Submit */}

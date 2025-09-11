@@ -3,16 +3,17 @@ import { verifyOtp } from "../../_actions/auth.action";
 import { OtpValues } from "@/lib/schemes/auth.schema";
 
 export default function useVerifyOtp() {
-    const { mutate, isPending, error  } = useMutation({
-        mutationFn: async (data: OtpValues) => {
-            const payload: ApiResponse<null> = await verifyOtp(data)
-            if ("code" in payload) {
-                throw new Error(payload.message)
-            }
+  const { mutate, isPending, error } = useMutation({
+    mutationFn: async (data: OtpValues) => {
+      const payload: ApiResponse<null> = await verifyOtp(data);
 
-            return payload
-        }
-    });
+      if ("code" in payload) {
+        throw new Error(payload.message);
+      }
 
-    return { isPending, error, verifyOtp: mutate};
+      return payload;
+    },
+  });
+
+  return { isPending, error, verifyOtp: mutate };
 }

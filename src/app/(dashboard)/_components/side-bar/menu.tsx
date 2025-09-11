@@ -34,8 +34,10 @@ const MenuLinks = ({ path, label, Icon, isActive }: LinkType) => {
 };
 
 export default function Menu() {
+  // Navigation
   const pathname = usePathname();
 
+  // variables
   const LINKS: Omit<LinkType, "isActive">[] = [
     {
       path: "/",
@@ -60,6 +62,7 @@ export default function Menu() {
               : pathname.startsWith(link.path);
 
           return (
+            // Link
             <li key={index}>
               <MenuLinks {...link} isActive={isActive} />
             </li>

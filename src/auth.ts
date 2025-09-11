@@ -11,12 +11,15 @@ export const authOption: NextAuthOptions = {
   providers: [
     Credentials({
       name: "Credentials",
+
       credentials: {
         email: {},
         password: {},
       },
+
       authorize: async (credentials) => {
         const url = process.env.BASE_API_URL + "/auth/signin";
+
         const response = await fetch(url, {
           method: "POST",
           headers: {

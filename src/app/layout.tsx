@@ -17,13 +17,12 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Exam App',
-  description: 'A smart exam platform to enhance your learning journey.',
+  title: "Exam App",
+  description: "A smart exam platform to enhance your learning journey.",
   icons: {
-    icon: '/icons/folder-code.svg',
-  }
+    icon: "/icons/folder-code.svg",
+  },
 };
-
 
 export default function RootLayout({
   children,
@@ -32,9 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistMono.className} antialiased ${inter.variable}`}
-      >
+      <body className={`${geistMono.className} antialiased ${inter.variable}`}>
         <AuthProvider>
           <ReactQueryProvider>
             {children}

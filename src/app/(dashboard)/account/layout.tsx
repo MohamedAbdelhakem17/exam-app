@@ -9,7 +9,7 @@ export default function AccountSettingLayout({
 }) {
   return (
     <main className="min-h-screen flex flex-col bg-gray-50">
-      <div className="sticky top-0">
+      <div className="sticky top-0 z-10 bg-gray-50 space-y-6">
         {/* Breadcrumb */}
         <AppBreadcrumb paths={[{ name: "Account" }]} />
 
@@ -17,7 +17,7 @@ export default function AccountSettingLayout({
         <PageHeader Icon={UserRound} title="Account Settings" back={true} />
       </div>
       {/* Main content */}
-      <section className="px-6 pb-6 flex gap-x-6 flex-1">
+      <section className="px-6 pb-6 flex gap-x-6 flex-1 mt-6">
         {/* Sidebar */}
         <AccountSidebar />
 

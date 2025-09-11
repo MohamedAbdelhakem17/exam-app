@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       spacing: {
         xxl: "22.625rem",
-        "side-top": "11.5625rem",
+        "side-top": "13rem",
       },
 
       width: {

@@ -11,9 +11,7 @@ export default function RootLayout({
       <SideBar />
 
       {/* Main content */}
-      <section className="ml-xxl flex-1 bg-gray-50">
-        {children}
-      </section>
+      <section className="ml-xxl flex-1 bg-gray-50">{children}</section>
     </main>
   );
 }

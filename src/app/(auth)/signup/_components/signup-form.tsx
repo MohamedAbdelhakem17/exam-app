@@ -22,11 +22,13 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
-  // mutation hook
-  const { isPending, error, register } = useRegister();
-
+  // Navigation
   const router = useRouter();
 
+  // mutation
+  const { isPending, error, register } = useRegister();
+
+  // Form and Validations
   const form = useForm<RegisterValues>({
     defaultValues: {
       firstName: "",
@@ -37,6 +39,7 @@ export default function SignupForm() {
       password: "",
       rePassword: "",
     },
+
     resolver: zodResolver(registerSchema),
   });
 
@@ -53,9 +56,8 @@ export default function SignupForm() {
     });
   };
 
-  const {
-    formState: { errors, isValid, isSubmitted },
-  } = form;
+  // Variables
+  const { errors, isValid, isSubmitted } = form.formState;
 
   return (
     <Form {...form}>
@@ -205,7 +207,7 @@ export default function SignupForm() {
           )}
         />
 
-        {/* Error */}
+        {/* Api feedback */}
         {error && <ApiError>{error.message}</ApiError>}
 
         {/* Submit */}

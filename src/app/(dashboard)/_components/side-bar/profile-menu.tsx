@@ -31,6 +31,7 @@ export default function ProfileMenu() {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
@@ -73,11 +74,11 @@ export default function ProfileMenu() {
 
       {/* Dropdown Menu */}
       {isMenuOpen && (
-        <ul className="absolute bottom-full left-full mt-2 w-64 bg-white z-50 border divide-y-2">
+        <ul className="absolute bottom-full left-full mt-2 w-64 bg-white  border divide-y-2">
           {/* Account Link */}
           <li>
             <Link
-              href="/profile"
+              href="/account"
               onClick={() => setIsMenuOpen(false)}
               className="flex items-center text-sm text-gray-800 p-4 gap-1.5 hover:bg-gray-50"
             >

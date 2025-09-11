@@ -10,13 +10,17 @@ type ForgotPasswordPageProps = {
   };
 };
 
-export default function ForgotPasswordPage({ params }: ForgotPasswordPageProps) {
+export default function ForgotPasswordPage({
+  params,
+}: ForgotPasswordPageProps) {
+  // Navigation
   const isFromLogin = cookies().get("fromLogin");
 
   if (!isFromLogin) {
     redirect("/signin");
   }
 
+  // Variables
   const CURRENT_STEP: Step = params.step ?? "/";
 
   const STEPS_MAP: Record<Step, JSX.Element> = {
@@ -25,10 +29,9 @@ export default function ForgotPasswordPage({ params }: ForgotPasswordPageProps) 
     "create-password": <CreatePassword />,
   };
 
-
-
   return (
     <section className="flex flex-col items-center justify-center">
+      {/* Render current step  */}
       {STEPS_MAP[CURRENT_STEP]}
     </section>
   );
