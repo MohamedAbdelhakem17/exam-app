@@ -15,7 +15,7 @@ export default async function SubjectPage() {
 
   // Query
   const response = await fetch(
-    `${process.env.BASE_API_URL}/subjects?limit=6&page==1`,
+    `${process.env.BASE_API_URL}/subjects?limit=6&page=1`,
     {
       method: "GET",
       headers: {
