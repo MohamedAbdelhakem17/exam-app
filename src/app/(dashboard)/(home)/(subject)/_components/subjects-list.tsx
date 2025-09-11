@@ -64,8 +64,11 @@ export default function SubjectsList({ initialData }: Props) {
         }
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {allSubjects.map((subject: Subject) => (
-            <SubjectsCard key={subject._id} subject={subject} />
+          {allSubjects.map((subject: Subject, index: number) => (
+            <SubjectsCard
+              key={subject._id || index.toString()}
+              subject={subject}
+            />
           ))}
         </div>
       </InfiniteScroll>

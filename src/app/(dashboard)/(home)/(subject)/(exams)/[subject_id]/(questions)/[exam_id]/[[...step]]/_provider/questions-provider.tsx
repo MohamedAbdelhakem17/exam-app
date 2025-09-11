@@ -11,6 +11,7 @@ export const QuestionsContext = createContext<{
   saveAnswers: (data: questionsValues) => void;
   handleNextQuestion: (callback: (answer: string) => void) => void;
   handlePreviousQuestion: (callback: (answer: string) => void) => void;
+  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
   questions: QuestionType[];
 } | null>(null);
 
@@ -111,6 +112,7 @@ export const QuestionsProvider = ({ children, questions }: ProviderProps) => {
         handleNextQuestion,
         handlePreviousQuestion,
         questions,
+        setCurrentIndex,
       }}
     >
       {children}

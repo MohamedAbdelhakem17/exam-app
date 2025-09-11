@@ -23,6 +23,7 @@ import { ApiError } from "@/app/(auth)/_components";
 import { useQuestions } from "../_hooks/use-questions";
 import { handleGoToExamResult } from "../_actions/check-questions.action";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function QuestionForm({ data }: { data: ExamData }) {
   // Navigation
@@ -39,6 +40,7 @@ export default function QuestionForm({ data }: { data: ExamData }) {
     currentIndex,
     handleNextQuestion,
     handlePreviousQuestion,
+    setCurrentIndex,
   } = useQuestions();
 
   // Form and Validation
@@ -57,15 +59,22 @@ export default function QuestionForm({ data }: { data: ExamData }) {
 
   // Functions
   const examSubmit = () => {
+    const preparedAnswers = questions.map((q) => {
+      const found = answers.find((a) => a.questionId === q._id);
+      return {
+        questionId: q._id,
+        correct: found ? found.correct : "none",
+      };
+    });
+
     checkQuestions(
-      { answers, time: Number(duration) },
+      { answers: preparedAnswers, time: Number(duration) },
       {
         onSuccess: async (res) => {
           await handleGoToExamResult();
 
           localStorage.setItem("examResult", JSON.stringify(res));
           sessionStorage.removeItem("answers");
-          sessionStorage.removeItem("examTime");
 
           router.replace(`/${subject_id}/${exam_id}/result`);
         },
@@ -84,6 +93,13 @@ export default function QuestionForm({ data }: { data: ExamData }) {
       examSubmit();
     }
   };
+
+  // Effect
+  useEffect(() => {
+    return () => {
+      sessionStorage.removeItem("answers");
+    };
+  }, []);
 
   if (!currentQuestion) return <p>No questions found.</p>;
 
@@ -157,7 +173,10 @@ export default function QuestionForm({ data }: { data: ExamData }) {
           {/* Exam timer  */}
           <ExamTimer
             duration={Number(duration)}
-            examSubmit={() => console.log("")}
+            examSubmit={() => {
+              setCurrentIndex(questions.length - 1);
+              form.handleSubmit(onSubmit)();
+            }}
           />
 
           {/* submit and next question button */}

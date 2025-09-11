@@ -68,6 +68,10 @@ export default function ExamResult() {
         void error;
       }
     }
+
+    return () => {
+      localStorage.removeItem("examResult");
+    };
   }, []);
 
   return (
