@@ -7,25 +7,9 @@ import {
   OtpValues,
   RegisterValues,
 } from "@/lib/schemes/auth.schema";
-import {
-  CreatePasswordResponse,
-  ForgotPasswordResponse,
-  RegisterResponse,
-} from "@/lib/types/auth";
+import { CreatePasswordResponse, ForgotPasswordResponse, RegisterResponse } from "@/lib/types/auth";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-
-// Handel go to forgot password
-export async function handelGoToForgotPassword() {
-  cookies().set("fromLogin", "true", {
-    httpOnly: true,
-    path: "/",
-    maxAge: 60 * 5,
-  });
-
-  redirect("/forgot-password");
-}
 
 // Handel Register
 export async function register(data: RegisterValues) {

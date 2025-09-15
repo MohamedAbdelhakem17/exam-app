@@ -2,7 +2,13 @@ import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const publicRoutes = ["/signin", "/signup", "/forgot-password"];
+const publicRoutes = [
+  "/signin",
+  "/signup",
+  "/forgot-password",
+  "/forgot-password/reset-password",
+  "/forgot-password/verify-otp",
+];
 
 export default async function middleware(request: NextRequest) {
   // Retrieves the JWT token from the request to check for an active session.

@@ -15,10 +15,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { loginSchema, LoginValues } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { handelGoToForgotPassword } from "../../_actions/auth.action";
 import useLogin from "../_hooks/use-login";
 import { toast } from "sonner";
 import { AppToaster } from "@/components/shared";
+import Link from "next/link";
 
 export default function SigninForm() {
   // Form and Validation
@@ -43,10 +43,6 @@ export default function SigninForm() {
         toast.custom(() => <AppToaster message={"Logged In Successfully"} />);
       },
     });
-  };
-
-  const goToForgotPassword = async () => {
-    await handelGoToForgotPassword();
   };
 
   return (
@@ -91,11 +87,10 @@ export default function SigninForm() {
 
               {/* Forgot password action */}
               <button
-                onClick={goToForgotPassword}
                 type="button"
                 className="block mt-3 mb-4 text-sm font-medium text-blue-600 text-end select-none ms-auto"
               >
-                Forgot your password?
+                <Link href="/forgot-password">Forgot your password?</Link>
               </button>
             </FormItem>
           )}
