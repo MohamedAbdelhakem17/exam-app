@@ -36,7 +36,6 @@ type FormProps = {
 export default function EditUserDataForm({ userData }: FormProps) {
   // hooks
   const { data: session, update: updateSession } = useSession();
-  console.log("session from edit form", session);
 
   // mutation
   const { editProfile, isPending, error } = useEditProfile();
