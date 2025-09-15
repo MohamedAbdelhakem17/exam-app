@@ -29,13 +29,6 @@ export default function useSubjects() {
         if ("code" in lastPage) return undefined;
         return lastPage.metadata?.nextPage ?? undefined;
       },
-
-      // initialData: initialData
-      //   ? {
-      //       pages: [initialData],
-      //       pageParams: [1],
-      //     }
-      //   : undefined,
     });
 
   return {
