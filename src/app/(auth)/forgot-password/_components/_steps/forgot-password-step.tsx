@@ -10,10 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  forgotPasswordSchema,
-  ForgotPasswordValues,
-} from "@/lib/schemes/auth.schema";
+import { forgotPasswordSchema, ForgotPasswordValues } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoveRightIcon } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -76,11 +73,7 @@ export default function ForgotPasswordStep() {
 
                 {/* Input */}
                 <FormControl>
-                  <Input
-                    type="email"
-                    {...field}
-                    placeholder="user@example.com"
-                  />
+                  <Input type="email" {...field} placeholder="user@example.com" />
                 </FormControl>
 
                 {/* Feedback */}
@@ -90,23 +83,16 @@ export default function ForgotPasswordStep() {
           />
 
           {/* Api feedback */}
-          {error && <ApiError>{error.message}</ApiError>}
+          {error && <ApiError message={error.message} />}
 
           {/* Submit */}
-          <Button
-            disabled={(isSubmitted && !isValid) || isPending}
-            className="mt-10 mb-9"
-          >
+          <Button disabled={(isSubmitted && !isValid) || isPending} className="mt-10 mb-9">
             <span className="me-2.5">Continue</span>
             <MoveRightIcon />
           </Button>
 
           {/* Create Account */}
-          <AuthLink
-            href="/signup"
-            linkText="Create yours "
-            message="Don’t have an account? "
-          />
+          <AuthLink href="/signup" linkText="Create yours " message="Don’t have an account? " />
         </form>
       </Form>
     </FormLayout>

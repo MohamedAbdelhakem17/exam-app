@@ -9,7 +9,6 @@ export default function useDeleteAccount() {
     error,
   } = useMutation({
     mutationKey: ["edit-profile"],
-
     mutationFn: async () => {
       const payload: ApiResponse<null> = (await deleteUserAccount())!;
 

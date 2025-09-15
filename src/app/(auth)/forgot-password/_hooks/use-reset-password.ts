@@ -6,9 +6,7 @@ import { CreatePasswordResponse } from "@/lib/types/auth";
 export default function useResetPassword() {
   const { mutate, isPending, error } = useMutation({
     mutationFn: async (data: CreatePasswordValues) => {
-      const payload: ApiResponse<CreatePasswordResponse> = await resetPassword(
-        data
-      );
+      const payload: ApiResponse<CreatePasswordResponse> = await resetPassword(data);
 
       if ("code" in payload) {
         throw new Error(payload.message);

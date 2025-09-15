@@ -8,3 +8,14 @@ declare type SuccessResponse<T> = {
 } & T;
 
 declare type ApiResponse<T> = ErrorResponse | SuccessResponse<T>;
+
+declare type Metadata = {
+  totalPages: number;
+  totalItems: number;
+  currentPage: number;
+  limit: number;
+};
+
+declare type PaginatedResponse<T> = {
+  metadata: Metadata;
+} & T;

@@ -29,9 +29,7 @@ export default function DashboardError({
         <h2 className="text-xl font-semibold text-gray-900">Dashboard Error</h2>
 
         {error.message && (
-          <p className="text-sm text-red-600 bg-red-50 p-3 rounded border">
-            {error.message}
-          </p>
+          <p className="text-sm text-red-600 bg-red-50 p-3 rounded border">{error.message}</p>
         )}
 
         <button

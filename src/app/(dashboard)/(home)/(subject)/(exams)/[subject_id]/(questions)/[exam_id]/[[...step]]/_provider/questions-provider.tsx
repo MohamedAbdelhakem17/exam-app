@@ -53,9 +53,7 @@ export const QuestionsProvider = ({ children, questions }: ProviderProps) => {
     return saved ? (JSON.parse(saved) as T) : fallback;
   };
 
-  const [answers, setAnswers] = useState<Answer[]>(() =>
-    getStorage<Answer[]>("answers", [])
-  );
+  const [answers, setAnswers] = useState<Answer[]>(() => getStorage<Answer[]>("answers", []));
 
   const [currentIndex, setCurrentIndex] = useState<number>(() =>
     getStorage<number>("currentIndex", 0)
@@ -82,8 +80,7 @@ export const QuestionsProvider = ({ children, questions }: ProviderProps) => {
     setCurrentIndex(nextIndex);
 
     const savedAnswer =
-      answers.find((a) => a.questionId === questions[nextIndex]._id)?.correct ||
-      "";
+      answers.find((a) => a.questionId === questions[nextIndex]._id)?.correct || "";
 
     callback(savedAnswer);
   };
@@ -96,8 +93,7 @@ export const QuestionsProvider = ({ children, questions }: ProviderProps) => {
     setCurrentIndex(prevIndex);
 
     const savedAnswer =
-      answers.find((a) => a.questionId === questions[prevIndex]._id)?.correct ||
-      "";
+      answers.find((a) => a.questionId === questions[prevIndex]._id)?.correct || "";
 
     callback(savedAnswer);
   };

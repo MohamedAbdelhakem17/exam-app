@@ -10,7 +10,6 @@ export default function useEditProfile() {
     error,
   } = useMutation({
     mutationKey: ["edit-profile"],
-
     mutationFn: async (data: EditUserDataValues) => {
       const payload: ApiResponse<EditProfileResponse> = (await editUserData(
         data

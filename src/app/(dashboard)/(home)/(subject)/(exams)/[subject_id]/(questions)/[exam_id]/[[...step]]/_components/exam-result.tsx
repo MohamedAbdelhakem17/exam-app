@@ -74,32 +74,21 @@ export default function ExamResult() {
     };
   }, []);
 
+  console.log("examResult", examResult);
+
   return (
     <>
       {/*Result header */}
-      <h2 className="pt-6 pb-4 text-blue-600 font-semibold text-2xl">
-        Results:
-      </h2>
+      <h2 className="pt-6 pb-4 text-blue-600 font-semibold text-2xl">Results:</h2>
 
       <div className="flex gap-4 items-center">
         {/* Summary with Donut Chart */}
         <div className="w-1/4 ">
           {/* Chart */}
-          <ChartContainer
-            config={chartConfig}
-            className="aspect-square max-h-52 mb-6"
-          >
+          <ChartContainer config={chartConfig} className="aspect-square max-h-52 mb-6">
             <PieChart>
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel />}
-              />
-              <Pie
-                data={chartData}
-                dataKey="value"
-                nameKey="name"
-                innerRadius={60}
-              />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+              <Pie data={chartData} dataKey="value" nameKey="name" innerRadius={60} />
             </PieChart>
           </ChartContainer>
 
@@ -125,9 +114,7 @@ export default function ExamResult() {
             {examResult?.WrongQuestions.map((question) => (
               <li key={question.QID}>
                 {/* Question header */}
-                <p className="font-semibold text-xl text-blue-600 mb-2.5">
-                  {question.Question}
-                </p>
+                <p className="font-semibold text-xl text-blue-600 mb-2.5">{question.Question}</p>
 
                 {/* Answers */}
                 <div className="space-y-2.5">
@@ -139,9 +126,7 @@ export default function ExamResult() {
                     </div>
 
                     {/* Answer */}
-                    <span className="text-gray-800 text-sm">
-                      {question.correctAnswer}
-                    </span>
+                    <span className="text-gray-800 text-sm">{question.correctAnswer}</span>
                   </div>
 
                   {/* Correct Answer */}
@@ -150,9 +135,7 @@ export default function ExamResult() {
                     <div className="h-4 w-4  rounded-full border-2 border-green-600 flex items-center justify-center" />
 
                     {/* Answer */}
-                    <span className="text-gray-800 text-sm">
-                      {question.correctAnswer}
-                    </span>
+                    <span className="text-gray-800 text-sm">{question.correctAnswer}</span>
                   </div>
                 </div>
               </li>
@@ -164,21 +147,13 @@ export default function ExamResult() {
       {/* Actions */}
       <div className="flex items-center gap-4 mt-4 py-6">
         {/* Restart */}
-        <Button
-          variant={"secondary"}
-          className="flex-1"
-          onClick={handelRestartExam}
-        >
+        <Button variant={"secondary"} className="flex-1" onClick={handelRestartExam}>
           <RotateCcw />
           <span>Restart</span>
         </Button>
 
         {/* Explore */}
-        <Button
-          variant={"default"}
-          className="flex-1"
-          onClick={handelExplorerExams}
-        >
+        <Button variant={"default"} className="flex-1" onClick={handelExplorerExams}>
           <FolderSearch />
           <span>Explore</span>
         </Button>

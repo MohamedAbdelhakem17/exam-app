@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { REQUEST_HEADERS } from "./lib/constants/request-headers.constant";
 import { RegisterResponse } from "./lib/types/auth";
 
-export const authOption: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/signin",
   },
@@ -11,7 +11,6 @@ export const authOption: NextAuthOptions = {
   providers: [
     Credentials({
       name: "Credentials",
-
       credentials: {
         email: {},
         password: {},
@@ -40,7 +39,7 @@ export const authOption: NextAuthOptions = {
         return {
           id: payload.user._id,
           token: payload.token,
-          ...payload.user,
+          user: payload.user,
         };
       },
     }),
@@ -66,15 +65,7 @@ export const authOption: NextAuthOptions = {
     },
 
     session: ({ session, token }) => {
-      if (session.user?.email) {
-        session.email = token.email || "";
-        session.firstName = token.firstName;
-        session.lastName = token.lastName;
-        session.username = token.username;
-        session.role = token.role;
-        session.phone = token.phone;
-        session._id = token._id;
-      }
+      session.user = token.user;
 
       return session;
     },

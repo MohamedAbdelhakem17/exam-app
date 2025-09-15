@@ -14,15 +14,13 @@ import { Input } from "@/components/ui/input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { loginSchema, LoginValues } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { handelGoToForgotPassword } from "../../_actions/auth.action";
+import useLogin from "../_hooks/use-login";
+import { toast } from "sonner";
+import { AppToaster } from "@/components/shared";
 
 export default function SigninForm() {
-  // state
-  const [apiError, setApiError] = useState<string>("");
-
   // Form and Validation
   const form = useForm<LoginValues>({
     defaultValues: {
@@ -32,30 +30,24 @@ export default function SigninForm() {
     resolver: zodResolver(loginSchema),
   });
 
+  // variables
+  const { isValid, isSubmitted } = form.formState;
+
+  // Hooks
+  const { Login, isPending, error } = useLogin();
+
   // Functions
   const onSubmit: SubmitHandler<LoginValues> = async (data) => {
-    const response = await signIn("credentials", {
-      email: data?.email,
-      password: data?.password,
-      redirect: false,
+    Login(data, {
+      onSuccess: () => {
+        toast.custom(() => <AppToaster message={"Logged In Successfully"} />);
+      },
     });
-
-    if (response?.error) {
-      setApiError(response.error);
-
-      return;
-    }
-
-    location.href =
-      new URLSearchParams(location.search).get("callbackUrl") || "/";
   };
 
   const goToForgotPassword = async () => {
     await handelGoToForgotPassword();
   };
-
-  // variables
-  const { isValid, isSubmitted } = form.formState;
 
   return (
     <Form {...form}>
@@ -110,19 +102,15 @@ export default function SigninForm() {
         />
 
         {/* Api feedback */}
-        {apiError && <ApiError>{apiError}</ApiError>}
+        {error && <ApiError message={error.message} />}
 
         {/* Submit */}
-        <Button disabled={isSubmitted && !isValid} className="mt-10 mb-9">
+        <Button disabled={isPending || (isSubmitted && !isValid)} className="mt-10 mb-9">
           Login
         </Button>
 
         {/* Create Account */}
-        <AuthLink
-          href="/signup"
-          linkText="Create yours "
-          message="Don’t have an account? "
-        />
+        <AuthLink href="/signup" linkText="Create yours " message="Don’t have an account? " />
       </form>
     </Form>
   );

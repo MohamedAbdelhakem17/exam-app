@@ -1,10 +1,11 @@
 import { getServerSession } from "next-auth";
 import EditUserDataForm from "./_components/edit-user-data-fom";
-import { authOption } from "@/auth";
+import { authOptions } from "@/auth";
 import { redirect } from "next/navigation";
 
 export default async function Profile() {
-  const session = await getServerSession(authOption);
+  // Session
+  const session = await getServerSession(authOptions);
 
   if (!session) {
     return redirect("/signin");
@@ -13,11 +14,11 @@ export default async function Profile() {
   return (
     <EditUserDataForm
       userData={{
-        firstName: session.firstName,
-        lastName: session.lastName,
-        email: session.email,
-        username: session.username,
-        phone: session.phone,
+        firstName: session?.user?.firstName,
+        lastName: session?.user?.lastName,
+        email: session?.user?.email,
+        username: session?.user?.username,
+        phone: session?.user?.phone,
       }}
     />
   );

@@ -17,10 +17,12 @@ import useDeleteAccount from "../../_hooks/use-delete-account";
 export default function DeleteUserAccount() {
   // Mutation
   const { deleteProfile, isPending } = useDeleteAccount();
+
   return (
     <Dialog>
       <DialogOverlay />
       <DialogTrigger asChild>
+        {/* Delete Button */}
         <Button variant={"red"} className="flex-1">
           Delete My Account
         </Button>
@@ -28,19 +30,23 @@ export default function DeleteUserAccount() {
       <DialogContent className="p-0 sm:rounded-none border-none max-w-xl ">
         <div className="py-9 flex items-center justify-center flex-col text-center">
           <div className="flex items-center justify-center mx-auto rounded-full w-28 h-28 bg-red-50 mb-7">
+            {/* Delete Alert Icon */}
             <div className="flex items-center justify-center mx-auto rounded-full w-20 h-20 bg-red-100">
               <TriangleAlert size="50" className="text-red-600" />
             </div>
           </div>
+          {/* Title */}
           <DialogTitle className="font-medium mb-2 text-red-600">
             Are you sure you want to delete your account?
           </DialogTitle>
+          {/* Description */}
           <DialogDescription>
             This action is permanent and cannot be undone.
           </DialogDescription>
         </div>
 
         <DialogFooter className="bg-gray-50 border-t border-gray-200  sm:justify-center flex gap-x-2  py-6">
+          {/* Cancel Button */}
           <DialogClose asChild className="w-fit bg-red-800">
             <Button
               variant="secondary"
@@ -49,6 +55,7 @@ export default function DeleteUserAccount() {
               Cancel
             </Button>
           </DialogClose>
+          {/* Confirm Delete Button */}
           <Button
             onClick={() => deleteProfile()}
             disabled={isPending}

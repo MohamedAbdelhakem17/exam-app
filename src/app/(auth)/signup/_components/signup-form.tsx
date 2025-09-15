@@ -47,9 +47,7 @@ export default function SignupForm() {
     register(data, {
       onSuccess: () => {
         toast.custom(() => (
-          <AppToaster
-            message={"Registration completed successfully. You can now log in."}
-          />
+          <AppToaster message={"Registration completed successfully. You can now log in."} />
         ));
         setTimeout(() => router.push("/signin"), 1200);
       },
@@ -208,19 +206,13 @@ export default function SignupForm() {
         />
 
         {/* Api feedback */}
-        {error && <ApiError>{error.message}</ApiError>}
+        {error && <ApiError message={error.message} />}
 
         {/* Submit */}
-        <Button disabled={(!isValid && isSubmitted) || isPending}>
-          Create Account
-        </Button>
+        <Button disabled={(!isValid && isSubmitted) || isPending}>Create Account</Button>
 
         {/* Login  */}
-        <AuthLink
-          href="/signin"
-          linkText="Login"
-          message="Already have an account? "
-        />
+        <AuthLink href="/signin" linkText="Login" message="Already have an account? " />
       </form>
     </Form>
   );

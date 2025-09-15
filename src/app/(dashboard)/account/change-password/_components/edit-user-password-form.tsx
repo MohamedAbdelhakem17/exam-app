@@ -8,10 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  editUserPasswordSchema,
-  EditUserPasswordValues,
-} from "@/lib/schemes/auth.schema";
+import { editUserPasswordSchema, EditUserPasswordValues } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
@@ -45,9 +42,7 @@ export default function EditUserPasswordForm() {
           ...session,
           ...res,
         });
-        toast.custom(() => (
-          <AppToaster message={"Your password has been updated.."} />
-        ));
+        toast.custom(() => <AppToaster message={"Your password has been updated.."} />);
         setTimeout(() => {
           location.href = "/";
         }, 1200);
@@ -105,14 +100,10 @@ export default function EditUserPasswordForm() {
         />
 
         {/* Api  feedback */}
-        {error && <ApiError>{error?.message}</ApiError>}
+        {error && <ApiError message={error.message} />}
 
         {/* Submit button */}
-        <Button
-          type="submit"
-          className="flex-1"
-          disabled={(isSubmitted && !isValid) || isPending}
-        >
+        <Button type="submit" className="flex-1" disabled={(isSubmitted && !isValid) || isPending}>
           Update Password
         </Button>
       </form>

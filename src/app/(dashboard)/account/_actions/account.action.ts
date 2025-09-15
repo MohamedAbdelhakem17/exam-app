@@ -1,10 +1,7 @@
 "use server";
 
 import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
-import {
-  EditUserDataValues,
-  EditUserPasswordValues,
-} from "@/lib/schemes/auth.schema";
+import { EditUserDataValues, EditUserPasswordValues } from "@/lib/schemes/auth.schema";
 import { getToken } from "@/lib/utils/get-token";
 import parsePhoneNumberFromString from "libphonenumber-js";
 import { cookies } from "next/headers";

@@ -1,32 +1,12 @@
 import SubjectsList from "./_components/subjects-list";
 import { GraduationCap } from "lucide-react";
 import { AppBreadcrumb, PageHeader } from "@/components/shared";
-import { getToken } from "@/lib/utils/get-token";
-import { redirect } from "next/navigation";
-import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
 import DiplomasNotFound from "./not-found";
+import { getSubjects } from "@/lib/apis/subjects.api";
 
 export default async function SubjectPage() {
-  // Navigation
-  const token = await getToken();
-  if (!token) {
-    redirect("/signin");
-  }
-
-  // Query
-  const response = await fetch(
-    `${process.env.BASE_API_URL}/subjects?limit=6&page==1`,
-    {
-      method: "GET",
-      headers: {
-        token: token?.token,
-        ...REQUEST_HEADERS,
-      },
-    }
-  );
-
   // Variables
-  const payload = await response.json();
+  const subjects = await getSubjects();
 
   return (
     <section className="flex flex-col gap-6 ">
@@ -41,14 +21,12 @@ export default async function SubjectPage() {
 
       {/* Content */}
       <div className="px-6 pb-6 flex gap-x-6 flex-1">
-        {"code" in payload ? (
+        {"code" in subjects ? (
           // Not found case
-          <DiplomasNotFound
-            message={payload.message || "We couldn’t find any subject."}
-          />
+          <DiplomasNotFound message={subjects.message || "We couldn’t find any subject."} />
         ) : (
           // Include data
-          <SubjectsList initialData={payload} />
+          <SubjectsList />
         )}
       </div>
     </section>

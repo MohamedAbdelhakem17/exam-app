@@ -10,9 +10,7 @@ type ForgotPasswordPageProps = {
   };
 };
 
-export default function ForgotPasswordPage({
-  params,
-}: ForgotPasswordPageProps) {
+export default function ForgotPasswordPage({ params }: ForgotPasswordPageProps) {
   // Navigation
   const isFromLogin = cookies().get("fromLogin");
 

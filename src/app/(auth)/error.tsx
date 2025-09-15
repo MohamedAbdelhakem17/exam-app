@@ -26,9 +26,7 @@ export default function AuthError({
           </svg>
         </div>
 
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
-          Something went wrong!
-        </h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-2">Something went wrong!</h2>
         <p className="text-gray-600 mb-6">{error.message}</p>
 
         <button

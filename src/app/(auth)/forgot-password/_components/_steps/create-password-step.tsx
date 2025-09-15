@@ -10,10 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  createPasswordSchema,
-  CreatePasswordValues,
-} from "@/lib/schemes/auth.schema";
+import { createPasswordSchema, CreatePasswordValues } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useResetPassword from "../../_hooks/use-reset-password";
@@ -46,9 +43,7 @@ export default function CreatePasswordStep() {
     await resetPassword(data, {
       onSuccess: () => {
         toast.custom(
-          () => (
-            <AppToaster message="Password successfully updated! You can now sign in." />
-          ),
+          () => <AppToaster message="Password successfully updated! You can now sign in." />,
           { duration: 1000 }
         );
 
@@ -127,13 +122,10 @@ export default function CreatePasswordStep() {
             />
 
             {/* Api feedback */}
-            {error && <ApiError>{error.message}</ApiError>}
+            {error && <ApiError message={error.message} />}
 
             {/* Submit */}
-            <Button
-              disabled={(isSubmitted && !isValid) || isPending}
-              className="mt-10 mb-9"
-            >
+            <Button disabled={(isSubmitted && !isValid) || isPending} className="mt-10 mb-9">
               Update Password
             </Button>
           </form>

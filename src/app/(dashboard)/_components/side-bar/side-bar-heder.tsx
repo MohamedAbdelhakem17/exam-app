@@ -1,18 +1,12 @@
 import { FolderCode } from "lucide-react";
 import Image from "next/image";
-import logo from "./logo.svg";
+import logo from "../../../../../public/assets/logo.svg";
 
 export default function SideBarHeader() {
   return (
     <header>
       {/* Image */}
-      <Image
-        src={logo}
-        alt="Elevate"
-        width={190}
-        height={35}
-        className="w-48 h-9"
-      />
+      <Image src={logo} alt="Elevate" width={190} height={35} className="w-48 h-9" />
 
       {/* Logo  */}
       <div className="flex items-center gap-2.5 mt-3">

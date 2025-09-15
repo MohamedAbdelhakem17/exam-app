@@ -2,11 +2,7 @@ import { AppBreadcrumb, PageHeader } from "@/components/shared";
 import { UserRound } from "lucide-react";
 import AccountSidebar from "./_components/account-sidebar";
 
-export default function AccountSettingLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AccountSettingLayout({ children }: { children: React.ReactNode }) {
   return (
     <main className="min-h-screen flex flex-col bg-gray-50">
       <div className="sticky top-0 z-10 bg-gray-50 space-y-6">

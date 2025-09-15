@@ -12,10 +12,7 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import {
-  questionsSchema,
-  questionsValues,
-} from "@/lib/schemes/questions.schema";
+import { questionsSchema, questionsValues } from "@/lib/schemes/questions.schema";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ExamTimer from "./exam-timer";
 import useCheckQuestions from "../_hooks/use-check-questions";
@@ -46,9 +43,7 @@ export default function QuestionForm({ data }: { data: ExamData }) {
   // Form and Validation
   const form = useForm<questionsValues>({
     defaultValues: {
-      answer:
-        answers.find((a) => a.questionId === currentQuestion?._id)?.correct ||
-        "",
+      answer: answers.find((a) => a.questionId === currentQuestion?._id)?.correct || "",
     },
     resolver: zodResolver(questionsSchema),
   });
@@ -107,9 +102,7 @@ export default function QuestionForm({ data }: { data: ExamData }) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
         {/* Question */}
-        <h2 className="text-2xl text-blue-600 font-semibold pt-6">
-          {currentQuestion.question}
-        </h2>
+        <h2 className="text-2xl text-blue-600 font-semibold pt-6">{currentQuestion.question}</h2>
 
         {/* Answer field */}
         <FormField
@@ -152,7 +145,7 @@ export default function QuestionForm({ data }: { data: ExamData }) {
           )}
         />
         {/* Api feedback */}
-        {error && <ApiError>{error.message}</ApiError>}
+        {error && <ApiError message={error.message} />}
 
         {/* Actions button */}
         <div className="flex justify-between items-center gap-4">
@@ -180,12 +173,8 @@ export default function QuestionForm({ data }: { data: ExamData }) {
           />
 
           {/* submit and next question button */}
-          <Button
-            type="submit"
-            disabled={isSubmitting || !form.getValues("answer") || isPending}
-          >
-            {currentIndex === questions.length - 1 ? "Finish" : "Next"}{" "}
-            <ChevronRight />
+          <Button type="submit" disabled={isSubmitting || !form.getValues("answer") || isPending}>
+            {currentIndex === questions.length - 1 ? "Finish" : "Next"} <ChevronRight />
           </Button>
         </div>
       </form>

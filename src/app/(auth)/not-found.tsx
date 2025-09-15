@@ -22,21 +22,15 @@ export default function AccountNotFound() {
               />
             </svg>
           </div>
-          <CardTitle className="text-2xl text-gray-900">
-            Account Not Found
-          </CardTitle>
+          <CardTitle className="text-2xl text-gray-900">Account Not Found</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-gray-600 text-center leading-relaxed">
-            The account you&apos;re looking for doesn&apos;t exist or may have
-            been deactivated.
+            The account you&apos;re looking for doesn&apos;t exist or may have been deactivated.
           </p>
 
           <div className="space-y-3">
-            <Button
-              asChild
-              className="w-full bg-gray-900 hover:bg-gray-800 text-white"
-            >
+            <Button asChild className="w-full bg-gray-900 hover:bg-gray-800 text-white">
               <Link href="/signin">Sign In</Link>
             </Button>
 

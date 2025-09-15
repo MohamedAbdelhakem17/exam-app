@@ -9,11 +9,7 @@ type EmptyStateProps = {
   };
 };
 
-export default function EmptyState({
-  title,
-  description,
-  link,
-}: EmptyStateProps) {
+export default function EmptyState({ title, description, link }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-20 text-center rounded-lg border border-gray-200 bg-white shadow-sm">
       {/* Title */}

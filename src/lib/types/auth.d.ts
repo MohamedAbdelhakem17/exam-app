@@ -9,7 +9,7 @@ export type RegisterResponse = {
     role: string;
     isVerified: boolean;
     _id: string;
-    createdAt: "string";
+    createdAt: string;
   };
 };
 

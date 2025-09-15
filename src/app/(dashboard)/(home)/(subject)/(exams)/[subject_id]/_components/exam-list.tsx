@@ -14,11 +14,12 @@ type Props = {
 
 export default function ExamList({ subject, initialData }: Props) {
   // query
-  const { data, fetchNextPage, hasNextPage, isError, error, isLoading } =
-    useExams({ subject, initialData });
+  const { data, fetchNextPage, hasNextPage, isError, error, isLoading } = useExams({
+    subject,
+    initialData,
+  });
 
-  const allExams =
-    data?.pages.flatMap((page) => ("exams" in page ? page.exams : [])) || [];
+  const allExams = data?.pages.flatMap((page) => ("exams" in page ? page.exams : [])) || [];
 
   // Loading state
   if (isLoading && !initialData) {
@@ -64,11 +65,7 @@ export default function ExamList({ subject, initialData }: Props) {
     >
       <ul className="p-6 space-y-4">
         {allExams.map((exam: Exam) => (
-          <ExamCard
-            link={`/${subject}/${exam._id}`}
-            exam={exam}
-            key={exam?._id}
-          />
+          <ExamCard link={`/${subject}/${exam._id}`} exam={exam} key={exam?._id} />
         ))}
       </ul>
     </InfiniteScroll>

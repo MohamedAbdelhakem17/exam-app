@@ -6,19 +6,24 @@ import SubjectsCard from "./subjects-card";
 import EmptyState from "./empty-state";
 import SubjectCardSkeleton from "./subject-card.skeleton";
 
-type Props = {
-  initialData: ApiResponse<SubjectsResponse>;
-};
-
-export default function SubjectsList({ initialData }: Props) {
+export default function SubjectsList() {
   // query
-  const { data, fetchNextPage, hasNextPage, isLoading, error, isError } =
-    useSubjects({ initialData });
+  const { data, fetchNextPage, hasNextPage, isLoading, error, isError } = useSubjects();
 
   // Variables
   const allSubjects =
-    data?.pages.flatMap((page) => ("subjects" in page ? page.subjects : [])) ||
-    [];
+    data?.pages.flatMap((page) => ("subjects" in page ? page.subjects : [])) || [];
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="p-6 space-y-4 w-full">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <SubjectCardSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
 
   // Empty state
   if (allSubjects.length === 0) {
@@ -28,17 +33,6 @@ export default function SubjectsList({ initialData }: Props) {
         description="There are no exams available for this subject right now."
         link={{ href: "/", label: "Back to Home" }}
       />
-    );
-  }
-
-  // Loading state
-  if (isLoading && !initialData) {
-    return (
-      <div className="p-6 space-y-4 w-full">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <SubjectCardSkeleton key={i} />
-        ))}
-      </div>
     );
   }
 
@@ -65,10 +59,7 @@ export default function SubjectsList({ initialData }: Props) {
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {allSubjects.map((subject: Subject, index: number) => (
-            <SubjectsCard
-              key={subject._id || index.toString()}
-              subject={subject}
-            />
+            <SubjectsCard key={subject._id || index.toString()} subject={subject} />
           ))}
         </div>
       </InfiniteScroll>

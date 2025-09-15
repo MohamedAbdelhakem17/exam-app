@@ -41,15 +41,11 @@ export default function AppBreadcrumb({ paths = [] }: AppBreadcrumbProps) {
               <BreadcrumbSeparator> / </BreadcrumbSeparator>
 
               {isLast ? (
-                <BreadcrumbPage className="text-blue-600">
-                  {path.name}
-                </BreadcrumbPage>
+                <BreadcrumbPage className="text-blue-600">{path.name}</BreadcrumbPage>
               ) : (
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>
-                    <Link href={path.href as string}>
-                      {path.name as string}
-                    </Link>
+                    <Link href={path.href as string}>{path.name as string}</Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
               )}

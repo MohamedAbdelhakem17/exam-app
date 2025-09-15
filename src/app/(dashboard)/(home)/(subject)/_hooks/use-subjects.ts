@@ -1,11 +1,7 @@
 import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-export default function useSubjects({
-  initialData,
-}: {
-  initialData: ApiResponse<SubjectsResponse>;
-}) {
+export default function useSubjects() {
   // get subjects function
   const getSubjects = async (page: number = 1) => {
     const apiUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/api/subjects?limit=6&page=${page}`;
@@ -21,33 +17,26 @@ export default function useSubjects({
   };
 
   // Use Infinite Query Setup
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isError,
-    error,
-    isLoading,
-  } = useInfiniteQuery({
-    queryKey: ["subjects"],
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError, error, isLoading } =
+    useInfiniteQuery({
+      queryKey: ["subjects"],
 
-    queryFn: ({ pageParam = 1 }) => getSubjects(pageParam),
+      queryFn: ({ pageParam = 1 }) => getSubjects(pageParam),
 
-    initialPageParam: 1,
+      initialPageParam: 1,
 
-    getNextPageParam: (lastPage) => {
-      if ("code" in lastPage) return undefined;
-      return lastPage.metadata?.nextPage ?? undefined;
-    },
+      getNextPageParam: (lastPage) => {
+        if ("code" in lastPage) return undefined;
+        return lastPage.metadata?.nextPage ?? undefined;
+      },
 
-    initialData: initialData
-      ? {
-          pages: [initialData],
-          pageParams: [1],
-        }
-      : undefined,
-  });
+      // initialData: initialData
+      //   ? {
+      //       pages: [initialData],
+      //       pageParams: [1],
+      //     }
+      //   : undefined,
+    });
 
   return {
     data,

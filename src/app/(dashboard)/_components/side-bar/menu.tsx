@@ -9,9 +9,7 @@ import ProfileMenu from "./profile-menu";
 export type LinkType = {
   path: string;
   label: string;
-  Icon: ForwardRefExoticComponent<
-    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
-  >;
+  Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
   isActive?: boolean;
 };
 

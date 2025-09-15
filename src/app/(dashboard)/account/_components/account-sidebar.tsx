@@ -5,6 +5,7 @@ import React from "react";
 import Link from "next/link";
 import { LinkType } from "../../_components/side-bar/menu";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 const MenuLinks = ({ path, label, Icon, isActive }: LinkType) => {
   return (
@@ -57,7 +58,13 @@ export default function AccountSidebar() {
       </ul>
 
       {/* Logout button */}
-      <Button variant={"red"} className="flex items-center justify-start py-6">
+      <Button
+        onClick={() => {
+          signOut();
+        }}
+        variant={"red"}
+        className="flex items-center justify-start py-6"
+      >
         <LogOutIcon className="rotate-180" />
         <span>Logout</span>
       </Button>

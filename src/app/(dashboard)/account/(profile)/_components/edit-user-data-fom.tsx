@@ -11,10 +11,7 @@ import {
 } from "@/components/ui/form";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  editUserDataSchema,
-  EditUserDataValues,
-} from "@/lib/schemes/auth.schema";
+import { editUserDataSchema, EditUserDataValues } from "@/lib/schemes/auth.schema";
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/app/(auth)/signup/_components/phone-input";
 import { Button } from "@/components/ui/button";
@@ -39,6 +36,7 @@ type FormProps = {
 export default function EditUserDataForm({ userData }: FormProps) {
   // hooks
   const { data: session, update: updateSession } = useSession();
+  console.log("session from edit form", session);
 
   // mutation
   const { editProfile, isPending, error } = useEditProfile();
@@ -63,9 +61,7 @@ export default function EditUserDataForm({ userData }: FormProps) {
           ...res.user,
         });
 
-        toast.custom(() => (
-          <AppToaster message={"Data updated completed successfully."} />
-        ));
+        toast.custom(() => <AppToaster message={"Data updated completed successfully."} />);
       },
     });
   };
@@ -163,7 +159,7 @@ export default function EditUserDataForm({ userData }: FormProps) {
         />
 
         {/* Api  feedback */}
-        {error && <ApiError>{error?.message}</ApiError>}
+        {error && <ApiError message={error.message} />}
 
         {/* Actions */}
         <div className="flex items-center justify-center gap-3.5">

@@ -3,13 +3,7 @@
 import { ApiError, AuthLink, FormLayout } from "@/app/(auth)/_components";
 import { AppToaster } from "@/components/shared";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { InputOTP, InputOTPSlot } from "@/components/ui/input-otp";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -51,9 +45,7 @@ export default function VerifyOTP() {
         sessionStorage.setItem("otpVerified", "true");
 
         toast.custom(
-          () => (
-            <AppToaster message="otp verify successfully reset your password now" />
-          ),
+          () => <AppToaster message="otp verify successfully reset your password now" />,
           {
             duration: 1000,
           }
@@ -117,18 +109,13 @@ export default function VerifyOTP() {
 
       <FormLayout label="Verify OTP" resetPassword={true}>
         {/* Info message */}
-        <p className="mt-2.5 text-gray-500">
-          Please enter the 6-digits code we have sent to:
-        </p>
+        <p className="mt-2.5 text-gray-500">Please enter the 6-digits code we have sent to:</p>
 
         {/* Show user email and allow editing */}
         <p className="text-sm mb-10">
           <span>{userEmail}.</span>
 
-          <Link
-            href="/forgot-password"
-            className="text-blue-600 underline font-medium"
-          >
+          <Link href="/forgot-password" className="text-blue-600 underline font-medium">
             Edit
           </Link>
         </p>
@@ -143,18 +130,10 @@ export default function VerifyOTP() {
                 <FormItem>
                   {/* Input */}
                   <FormControl>
-                    <InputOTP
-                      maxLength={6}
-                      pattern={REGEXP_ONLY_DIGITS}
-                      {...field}
-                    >
+                    <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS} {...field}>
                       {/* Input slots */}
                       {Array.from({ length: 6 }).map((_, index) => (
-                        <InputOTPSlot
-                          key={index}
-                          index={index}
-                          isError={Boolean(resetCode)}
-                        />
+                        <InputOTPSlot key={index} index={index} isError={Boolean(resetCode)} />
                       ))}
                     </InputOTP>
                   </FormControl>
@@ -187,27 +166,16 @@ export default function VerifyOTP() {
             )}
 
             {/* Api feedback */}
-            {(resendOtpError || error) && (
-              <ApiError>
-                {(resendOtpError?.message as string) ||
-                  (error?.message as string)}
-              </ApiError>
-            )}
+            {resendOtpError && <ApiError message={resendOtpError.message} />}
+            {error && <ApiError message={error.message} />}
 
             {/* Verify code submit button */}
-            <Button
-              className="mt-10 mb-9"
-              disabled={(isSubmitted && !isValid) || isPending}
-            >
+            <Button className="mt-10 mb-9" disabled={(isSubmitted && !isValid) || isPending}>
               Verify Code
             </Button>
 
             {/* Link to create account */}
-            <AuthLink
-              href="/signup"
-              linkText="Create yours "
-              message="Don’t have an account? "
-            />
+            <AuthLink href="/signup" linkText="Create yours " message="Don’t have an account? " />
           </form>
         </Form>
       </FormLayout>

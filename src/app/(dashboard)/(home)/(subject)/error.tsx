@@ -29,9 +29,7 @@ export default function DiplomasError({
 
         {/* Content */}
         <div className="flex flex-col items-center justify-center py-10 text-center">
-          <p className="text-gray-600 mb-6">
-            We couldn’t load the page. Please try again.
-          </p>
+          <p className="text-gray-600 mb-6">We couldn’t load the page. Please try again.</p>
 
           <button
             onClick={handleClick}

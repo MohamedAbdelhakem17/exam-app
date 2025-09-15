@@ -1,29 +1,21 @@
-import {
-  FolderCode,
-  BookOpenCheck,
-  Brain,
-  RectangleEllipsis,
-} from "lucide-react";
+import { FolderCode, BookOpenCheck, Brain, RectangleEllipsis } from "lucide-react";
 
 export default function AuthContent() {
   // variables
   const FEATURES = [
     {
       title: "Tailored Diplomas",
-      description:
-        "Choose from specialized tracks like Frontend, Backend, and Mobile Development.",
+      description: "Choose from specialized tracks like Frontend, Backend, and Mobile Development.",
       Icon: Brain,
     },
     {
       title: "Focused Exams",
-      description:
-        "Access topic-specific tests including HTML, CSS, JavaScript, and more.",
+      description: "Access topic-specific tests including HTML, CSS, JavaScript, and more.",
       Icon: BookOpenCheck,
     },
     {
       title: "Smart Multi-Step Forms",
-      description:
-        "Choose from specialized tracks like Frontend, Backend, and Mobile Development.",
+      description: "Choose from specialized tracks like Frontend, Backend, and Mobile Development.",
       Icon: RectangleEllipsis,
     },
   ];
@@ -37,14 +29,13 @@ export default function AuthContent() {
       {/* Main Content */}
       <div className="w-[28.625rem] relative">
         {/* Header */}
-        <header className="flex items-center gap-2 mb-36">
+        <header className="flex items-center gap-2">
           <FolderCode className="w-10 h-10 p-1 fill-blue-600 stroke-white" />
-          {/* <Image src="/icons/folder-code.svg" alt="Folder Code" width={20} height={20} className="w-10 h-10 p-1" /> */}
           <span className="text-xl font-semibold text-blue-600">Exam App</span>
         </header>
 
         {/* Content */}
-        <div>
+        <div className="my-20">
           {/* Title */}
           <h2 className="text-3xl font-bold leading-snug text-gray-800 mb-14 font-inter">
             Empower your learning journey with our smart exam platform.
@@ -66,14 +57,10 @@ export default function AuthContent() {
                   {/* Information */}
                   <div>
                     {/* title  */}
-                    <h3 className="mb-2 text-xl font-semibold text-blue-700">
-                      {item.title}
-                    </h3>
+                    <h3 className="mb-2 text-xl font-semibold text-blue-700">{item.title}</h3>
 
                     {/* description */}
-                    <p className="text-base leading-relaxed text-gray-700">
-                      {item.description}
-                    </p>
+                    <p className="text-base leading-relaxed text-gray-700">{item.description}</p>
                   </div>
                 </li>
               );

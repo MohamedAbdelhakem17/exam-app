@@ -10,7 +10,6 @@ export default function useEditPassword() {
     error,
   } = useMutation({
     mutationKey: ["edit-profile"],
-
     mutationFn: async (data: EditUserPasswordValues) => {
       const payload: ApiResponse<{ token: string }> = (await editUserPassword(
         data
