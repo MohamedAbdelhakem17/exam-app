@@ -74,8 +74,6 @@ export default function ExamResult() {
     };
   }, []);
 
-  console.log("examResult", examResult);
-
   return (
     <>
       {/*Result header */}
