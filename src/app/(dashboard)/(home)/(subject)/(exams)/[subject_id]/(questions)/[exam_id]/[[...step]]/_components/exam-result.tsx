@@ -140,7 +140,7 @@ export default function ExamResult() {
 
                     {/* Answer */}
                     <span className="text-gray-800 text-sm">
-                      {question.correctAnswer}
+                      {question.inCorrectAnswer}
                     </span>
                   </div>
 

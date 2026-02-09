@@ -1,16 +1,16 @@
 import { Metadata } from "next";
 import { FormLayout } from "../_components";
-import SigninForm from "./_components/signin-form";
+import LoginForm from "./_components/login-form";
 
 export const metadata: Metadata = {
-  title: "Sign in",
+  title: "Login in",
 };
 
-export default function SignIn() {
+export default function Login() {
   return (
     <section className="flex flex-col items-center justify-center">
       <FormLayout label="Login">
-        <SigninForm />
+        <LoginForm />
       </FormLayout>
     </section>
   );

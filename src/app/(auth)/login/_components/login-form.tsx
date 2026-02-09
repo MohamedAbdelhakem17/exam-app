@@ -1,27 +1,26 @@
 "use client";
 
 import {
+  Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  Form,
 } from "@/components/ui/form";
 
-import { AuthLink, ApiError } from "../../_components";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useForm, SubmitHandler } from "react-hook-form";
+
 import { loginSchema, LoginValues } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { handelGoToForgotPassword } from "../../_actions/auth.action";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { ApiFeedback, AuthLink } from "../../_components";
+import useLogin from "./../_hooks/use-login";
 
-export default function SigninForm() {
-  // state
-  const [apiError, setApiError] = useState<string>("");
+export default function LoginForm() {
+  // Mutation
+  const { login, error, isPending } = useLogin();
 
   // Form and Validation
   const form = useForm<LoginValues>({
@@ -33,25 +32,13 @@ export default function SigninForm() {
   });
 
   // Functions
-  const onSubmit: SubmitHandler<LoginValues> = async (data) => {
-    const response = await signIn("credentials", {
-      email: data?.email,
-      password: data?.password,
-      redirect: false,
+  const onSubmit: SubmitHandler<LoginValues> = (data) => {
+    login(data, {
+      onSuccess: () => {
+        location.href =
+          new URLSearchParams(location.search).get("callbackUrl") || "/";
+      },
     });
-
-    if (response?.error) {
-      setApiError(response.error);
-
-      return;
-    }
-
-    location.href =
-      new URLSearchParams(location.search).get("callbackUrl") || "/";
-  };
-
-  const goToForgotPassword = async () => {
-    await handelGoToForgotPassword();
   };
 
   // variables
@@ -88,32 +75,30 @@ export default function SigninForm() {
             <FormItem>
               {/* Label */}
               <FormLabel>Password</FormLabel>
-
               {/* Field */}
               <FormControl>
                 <Input type="password" placeholder="********" {...field} />
               </FormControl>
-
               {/* Feedback */}
               <FormMessage />
-
-              {/* Forgot password action */}
-              <button
-                onClick={goToForgotPassword}
-                type="button"
-                className="block mt-3 mb-4 text-sm font-medium text-blue-600 text-end select-none ms-auto"
-              >
-                Forgot your password?
-              </button>
+              {/* Forgot password action */}\
+              <AuthLink
+                href="/forgot-password"
+                linkText="Forgot your password?"
+              />
             </FormItem>
           )}
         />
 
         {/* Api feedback */}
-        {apiError && <ApiError>{apiError}</ApiError>}
+        <ApiFeedback>{error?.message}</ApiFeedback>
 
         {/* Submit */}
-        <Button disabled={isSubmitted && !isValid} className="mt-10 mb-9">
+        <Button
+          disabled={(isSubmitted && !isValid) || isPending}
+          className="mt-10 mb-9"
+          pending={isPending}
+        >
           Login
         </Button>
 

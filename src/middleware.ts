@@ -1,8 +1,8 @@
 import { getToken } from "next-auth/jwt";
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-const PUBLIC_ROUTES = ["/signin", "/signup", "/forgot-password"];
+const PUBLIC_ROUTES = ["/login", "/signup", "/forgot-password"];
 
 export default async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
@@ -16,7 +16,7 @@ export default async function middleware(request: NextRequest) {
   }
 
   if (!token) {
-    const url = new URL("/signin", request.nextUrl.origin);
+    const url = new URL("/login", request.nextUrl.origin);
     url.searchParams.set("callbackUrl", request.nextUrl.pathname);
 
     return NextResponse.redirect(url);

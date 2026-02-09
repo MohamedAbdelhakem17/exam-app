@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AuthContent from "./_components/auth-content";
+import AuthContent from "./_components/_layout/auth-sidebar";
 
 export const metadata: Metadata = {
   title: {
@@ -14,7 +14,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="grid min-h-screen grid-cols-2">
+    <main className="grid min-h-screen grid-cols-1 lg:grid-cols-2">
       {/* Side content */}
       <AuthContent />
 
