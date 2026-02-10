@@ -1,9 +1,9 @@
 import FEATURES from "@/lib/constants/auth-sidebar-content.constant";
 import { FolderCode } from "lucide-react";
 
-export default function AuthContent() {
+export default function AuthSidebar() {
   return (
-    <aside className="hidden lg:flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 relative bg-gradient-to-b from-blue-50 to-white backdrop-blur-[200px]">
+    <aside className="hidden lg:flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 relative bg-gradient-to-b from-blue-50 to-white backdrop-blur-[200px] h-full">
       {/* Overlay */}
       <div className="absolute bg-blue-400 rounded-full opacity-30 w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 right-4 top-20 md:top-28 blur-3xl" />
       <div className="absolute bottom-0 left-0 bg-blue-400 rounded-full opacity-30 w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 blur-3xl" />

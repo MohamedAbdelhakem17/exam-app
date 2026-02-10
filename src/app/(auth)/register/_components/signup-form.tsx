@@ -1,27 +1,26 @@
 "use client";
 
 import {
+  Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  Form,
 } from "@/components/ui/form";
 
-import { Input } from "@/components/ui/input";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { ApiError, AuthLink } from "../../_components";
 import { Button } from "@/components/ui/button";
-import { PhoneInput } from "./phone-input";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@/components/ui/input";
 import { registerSchema, RegisterValues } from "@/lib/schemes/auth.schema";
-import useRegister from "../_hooks/use-register";
-import { AppToaster } from "@/components/shared";
-import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { ApiFeedback, AuthLink } from "../../_components";
+import useRegister from "../_hooks/use-register";
+import { PhoneInput } from "./phone-input";
 
-export default function SignupForm() {
+export default function RegisterForm() {
   // Navigation
   const router = useRouter();
 
@@ -46,12 +45,14 @@ export default function SignupForm() {
   const onSubmit: SubmitHandler<RegisterValues> = (data) => {
     register(data, {
       onSuccess: () => {
-        toast.custom(() => (
-          <AppToaster
-            message={"Registration completed successfully. You can now log in."}
-          />
-        ));
-        setTimeout(() => router.push("/signin"), 1200);
+        toast.success(
+          "Registration completed successfully. You can now log in.",
+          {
+            onAutoClose: () => {
+              router.push("/signin");
+            },
+          },
+        );
       },
     });
   };
@@ -61,56 +62,56 @@ export default function SignupForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
-        {/* Name  */}
-        <div className="flex items-center  justify-center gap-2.5">
-          {/* First Name  */}
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem>
-                {/* Label */}
-                <FormLabel>First name</FormLabel>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="mt-4 gap-4 grid grid-cols-1 md:grid-cols-2"
+      >
+        {/* First Name  */}
+        <FormField
+          control={form.control}
+          name="firstName"
+          render={({ field }) => (
+            <FormItem className="col-span-1">
+              {/* Label */}
+              <FormLabel>First name</FormLabel>
 
-                {/* Field */}
-                <FormControl>
-                  <Input placeholder="Ahmed" {...field} />
-                </FormControl>
+              {/* Field */}
+              <FormControl>
+                <Input placeholder="Mohamed" {...field} />
+              </FormControl>
 
-                {/* Feedback */}
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+              {/* Feedback */}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-          {/* Last  Name  */}
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem>
-                {/* Label */}
-                <FormLabel>Last name</FormLabel>
+        {/* Last  Name  */}
+        <FormField
+          control={form.control}
+          name="lastName"
+          render={({ field }) => (
+            <FormItem className="col-span-1">
+              {/* Label */}
+              <FormLabel>Last name</FormLabel>
 
-                {/* Field */}
-                <FormControl>
-                  <Input placeholder="Abdullah" {...field} />
-                </FormControl>
+              {/* Field */}
+              <FormControl>
+                <Input placeholder="Abdelhakem" {...field} />
+              </FormControl>
 
-                {/* Feedback */}
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+              {/* Feedback */}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         {/* user name */}
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="col-span-full">
               {/* Label */}
               <FormLabel>Username</FormLabel>
 
@@ -130,7 +131,7 @@ export default function SignupForm() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="col-span-full">
               {/* Label */}
               <FormLabel>Email</FormLabel>
 
@@ -150,7 +151,7 @@ export default function SignupForm() {
           control={form.control}
           name="phone"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="col-span-full">
               {/* Label */}
               <FormLabel>Phone</FormLabel>
 
@@ -174,7 +175,7 @@ export default function SignupForm() {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="col-span-full">
               {/* Label */}
               <FormLabel>Password</FormLabel>
 
@@ -193,7 +194,7 @@ export default function SignupForm() {
           control={form.control}
           name="rePassword"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="col-span-full">
               {/* Label */}
               <FormLabel>Confirm Password</FormLabel>
 
@@ -208,19 +209,25 @@ export default function SignupForm() {
         />
 
         {/* Api feedback */}
-        {error && <ApiError>{error.message}</ApiError>}
+        <ApiFeedback>{error?.message}</ApiFeedback>
 
         {/* Submit */}
-        <Button disabled={(!isValid && isSubmitted) || isPending}>
+        <Button
+          disabled={(!isValid && isSubmitted) || isPending}
+          pending={isPending}
+          className="col-span-full"
+        >
           Create Account
         </Button>
 
         {/* Login  */}
-        <AuthLink
-          href="/signin"
-          linkText="Login"
-          message="Already have an account? "
-        />
+        <div className="col-span-full">
+          <AuthLink
+            href="/login"
+            linkText="Login"
+            message="Already have an account? "
+          />
+        </div>
       </form>
     </Form>
   );

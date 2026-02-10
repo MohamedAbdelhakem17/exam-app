@@ -13,7 +13,7 @@ export default function FormLayout({
   children,
 }: FormLayout) {
   return (
-    <div className="md:w-lg w-80">
+    <div className="md:w-lg w-80 py-8 md:py-0">
       {/* Label */}
       <h1
         className={cn([

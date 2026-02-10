@@ -1,6 +1,9 @@
 "use client";
 
-import React from "react";
+import { ApiError } from "@/app/(auth)/_components";
+import { PhoneInput } from "@/app/(auth)/register/_components/phone-input";
+import { AppToaster } from "@/components/shared";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,21 +12,17 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@/components/ui/input";
 import {
   editUserDataSchema,
   EditUserDataValues,
 } from "@/lib/schemes/auth.schema";
-import { Input } from "@/components/ui/input";
-import { PhoneInput } from "@/app/(auth)/signup/_components/phone-input";
-import { Button } from "@/components/ui/button";
-import { parsePhoneNumber } from "react-phone-number-input";
-import useEditProfile from "../../_hooks/use-edit-profile";
-import { ApiError } from "@/app/(auth)/_components";
-import { toast } from "sonner";
-import { AppToaster } from "@/components/shared";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { parsePhoneNumber } from "react-phone-number-input";
+import { toast } from "sonner";
+import useEditProfile from "../../_hooks/use-edit-profile";
 import DeleteUserAccount from "./delete-user-account";
 
 type FormProps = {

@@ -81,7 +81,7 @@ export default function LoginForm() {
               </FormControl>
               {/* Feedback */}
               <FormMessage />
-              {/* Forgot password action */}\
+              {/* Forgot password action */}
               <AuthLink
                 href="/forgot-password"
                 linkText="Forgot your password?"
@@ -104,7 +104,7 @@ export default function LoginForm() {
 
         {/* Create Account */}
         <AuthLink
-          href="/signup"
+          href="/register"
           linkText="Create yours "
           message="Don’t have an account? "
         />

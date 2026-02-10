@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AuthContent from "./_components/_layout/auth-sidebar";
+import AuthSidebar from "./_components/_layout/auth-sidebar";
 
 export const metadata: Metadata = {
   title: {
@@ -16,10 +16,12 @@ export default function AuthLayout({
   return (
     <main className="grid min-h-screen grid-cols-1 lg:grid-cols-2">
       {/* Side content */}
-      <AuthContent />
+      <div className="lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden">
+        <AuthSidebar />
+      </div>
 
       {/* Main content */}
-      {children}
+      <div className="lg:overflow-y-auto lg:h-screen">{children}</div>
     </main>
   );
 }
