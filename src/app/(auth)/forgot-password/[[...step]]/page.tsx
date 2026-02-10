@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
 import { CreatePassword, ForgotPassword, VerifyOTP } from "../_components";
 
 type Step = "/" | "verify-otp" | "create-password";
@@ -13,13 +11,6 @@ type ForgotPasswordPageProps = {
 export default function ForgotPasswordPage({
   params,
 }: ForgotPasswordPageProps) {
-  // Navigation
-  const isFromLogin = cookies().get("fromLogin");
-
-  if (!isFromLogin) {
-    redirect("/signin");
-  }
-
   // Variables
   const CURRENT_STEP: Step = params.step ?? "/";
 
@@ -30,7 +21,7 @@ export default function ForgotPasswordPage({
   };
 
   return (
-    <section className="flex flex-col items-center justify-center">
+    <section className="flex flex-col items-center justify-center min-h-screen">
       {/* Render current step  */}
       {STEPS_MAP[CURRENT_STEP]}
     </section>

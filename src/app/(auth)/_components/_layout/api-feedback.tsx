@@ -12,7 +12,7 @@ export default function ApiFeedback({
   return (
     <div
       {...props}
-      className={`relative my-9 border border-red-600 bg-red-50 py-2 text-center text-red-600 ${props.className ?? ""}`}
+      className={`relative my-9 border border-red-600 bg-red-50 py-2 text-center text-red-600 w-full ${props.className ?? ""}`}
     >
       <CircleX
         strokeWidth={1}

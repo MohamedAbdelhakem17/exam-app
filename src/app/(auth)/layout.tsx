@@ -14,7 +14,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="grid min-h-screen grid-cols-1 lg:grid-cols-2">
+    <main className="flex flex-col lg:grid min-h-screen lg:grid-cols-2">
       {/* Side content */}
       <div className="lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden">
         <AuthSidebar />

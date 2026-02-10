@@ -7,11 +7,15 @@ export default function RootLayout({
 }>) {
   return (
     <main className="min-h-screen flex">
-      {/* Side content */}
-      <SideBar />
+      {/* Sidebar - fixed on mobile, sticky on desktop */}
+      <div className="lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden">
+        <SideBar />
+      </div>
 
       {/* Main content */}
-      <section className="ml-xxl flex-1 bg-gray-50">{children}</section>
+      <section className="lg:overflow-y-auto lg:h-screen flex-1 bg-gray-50 w-full">
+        {children}
+      </section>
     </main>
   );
 }

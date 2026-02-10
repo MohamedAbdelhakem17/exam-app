@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Login() {
   return (
-    <section className="flex flex-col items-center justify-center">
+    <section className="flex flex-col items-center justify-center min-h-screen">
       <FormLayout label="Login">
         <LoginForm />
       </FormLayout>
