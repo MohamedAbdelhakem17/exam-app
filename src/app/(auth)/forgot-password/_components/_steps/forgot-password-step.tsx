@@ -1,5 +1,6 @@
 "use client";
-import { ApiError, AuthLink, FormLayout } from "@/app/(auth)/_components";
+import { AuthLink, FormLayout } from "@/app/(auth)/_components";
+import { ApiFeedback, AppToaster } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,11 +17,10 @@ import {
 } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoveRightIcon } from "lucide-react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import useSendOtp from "../../_hooks/use-send-otp";
-import { toast } from "sonner";
-import { AppToaster } from "@/components/shared";
 import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import useSendOtp from "../../_hooks/use-send-otp";
 
 export default function ForgotPasswordStep() {
   // Navigation
@@ -90,7 +90,7 @@ export default function ForgotPasswordStep() {
           />
 
           {/* Api feedback */}
-          {error && <ApiError>{error.message}</ApiError>}
+          {error && <ApiFeedback>{error.message}</ApiFeedback>}
 
           {/* Submit */}
           <Button

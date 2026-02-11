@@ -1,30 +1,34 @@
-import { getToken } from "next-auth/jwt";
-import { NextResponse, NextRequest } from "next/server";
 import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
+import { authApiWrapper } from "@/lib/utils/auth-api-wrapper";
+import { NextRequest, NextResponse } from "next/server";
+import SERVER_ENV from "./../../../lib/env/server";
 
-export async function GET(req: NextRequest) {
-  const token = await getToken({ req });
-
-  if (!token?.token) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
+export const GET = authApiWrapper(async (req: NextRequest, token) => {
+  // Extract query parameters from the request URL
   const params = req.nextUrl.searchParams;
-  const limit = params.get("limit");
-  const page = params.get("page");
-  const subject = params.get("subject");
 
-  const url = `${process.env.BASE_API_URL}/exams?limit=${limit}&page=${page}&subject=${subject}`;
+  // Encode the query parameters to be appended to the API URL
+  const encodedParameters = new URLSearchParams({
+    limit: params.get("limit") || "",
+    page: params.get("page") || "",
+    subject: params.get("subject") || "",
+  }).toString();
 
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      token: token?.token,
-      ...REQUEST_HEADERS,
+  // Make a GET request to the external API with the encoded query parameters and the token in the headers
+  const response = await fetch(
+    `${SERVER_ENV.BASE_API_URL}/exams?${encodedParameters}`,
+    {
+      method: "GET",
+      headers: {
+        token: token?.token as string,
+        ...REQUEST_HEADERS,
+      },
     },
-  });
+  );
 
+  // Parse the JSON response from the external API and return it as a NextResponse
   const payload: ApiResponse<ExamResponse> = await response.json();
 
+  // Return the parsed response as a JSON response to the client
   return NextResponse.json(payload);
-}
+});

@@ -1,7 +1,9 @@
 import { AppBreadcrumb, PageHeader } from "@/components/shared";
+import { getExamQuestions } from "@/lib/api/questions.api";
 import { CircleQuestionMark } from "lucide-react";
-import React, { Suspense } from "react";
-import { getExamQuestions } from "@/lib/utils/get-questions";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import {
   ExamHeader,
   ExamResult,
@@ -9,8 +11,6 @@ import {
   QuizQuestionSkeleton,
   ResultsSkeleton,
 } from "./_components";
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
 import { QuestionsProvider } from "./_provider/questions-provider";
 
 type Step = "/" | "result";

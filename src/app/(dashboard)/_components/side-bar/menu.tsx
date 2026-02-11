@@ -19,7 +19,7 @@ const MenuLinks = ({ path, label, Icon, isActive }: LinkType) => {
   return (
     <Link
       href={path}
-      className={`flex items-center gap-2.5  ease-linear text-gray-500 font-medium text-base p-4 border mb-2.5
+      className={`flex items-center gap-2.5  ease-linear text-gray-500 font-medium text-base px-4 py-2 border mb-2
         ${
           isActive
             ? " border-blue-500 bg-blue-100 text-blue-500 "

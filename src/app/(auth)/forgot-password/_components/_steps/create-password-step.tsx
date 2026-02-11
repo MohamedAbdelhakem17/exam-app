@@ -1,5 +1,6 @@
 "use client";
-import { ApiError, FormLayout } from "@/app/(auth)/_components";
+import { FormLayout } from "@/app/(auth)/_components";
+import { ApiFeedback, AppToaster } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,12 +16,11 @@ import {
   CreatePasswordValues,
 } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import useResetPassword from "../../_hooks/use-reset-password";
-import { toast } from "sonner";
-import { AppToaster } from "@/components/shared";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import useResetPassword from "../../_hooks/use-reset-password";
 import BackLink from "../back-link";
 
 export default function CreatePasswordStep() {
@@ -49,7 +49,7 @@ export default function CreatePasswordStep() {
           () => (
             <AppToaster message="Password successfully updated! You can now sign in." />
           ),
-          { duration: 1000 }
+          { duration: 1000 },
         );
 
         sessionStorage.clear();
@@ -127,7 +127,7 @@ export default function CreatePasswordStep() {
             />
 
             {/* Api feedback */}
-            {error && <ApiError>{error.message}</ApiError>}
+            {error && <ApiFeedback>{error.message}</ApiFeedback>}
 
             {/* Submit */}
             <Button

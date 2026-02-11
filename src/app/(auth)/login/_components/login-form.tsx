@@ -15,7 +15,8 @@ import { Input } from "@/components/ui/input";
 import { loginSchema, LoginValues } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ApiFeedback, AuthLink } from "../../_components";
+import { ApiFeedback } from "@/components/shared";
+import { AuthLink } from "../../_components";
 import useLogin from "./../_hooks/use-login";
 
 export default function LoginForm() {

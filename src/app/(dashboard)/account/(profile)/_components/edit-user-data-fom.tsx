@@ -1,8 +1,7 @@
 "use client";
 
-import { ApiError } from "@/app/(auth)/_components";
 import { PhoneInput } from "@/app/(auth)/register/_components/phone-input";
-import { AppToaster } from "@/components/shared";
+import { ApiFeedback, AppToaster } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -162,14 +161,12 @@ export default function EditUserDataForm({ userData }: FormProps) {
         />
 
         {/* Api  feedback */}
-        {error && <ApiError>{error?.message}</ApiError>}
+        <ApiFeedback>{error?.message}</ApiFeedback>
 
         {/* Actions */}
         <div className="flex items-center justify-center gap-3.5">
-          {/* Delete account */}
           <DeleteUserAccount />
 
-          {/* Submit button */}
           <Button
             type="submit"
             className="flex-1"

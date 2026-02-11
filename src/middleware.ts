@@ -2,7 +2,13 @@ import { getToken } from "next-auth/jwt";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-const PUBLIC_ROUTES = ["/login", "/register", "/forgot-password"];
+const PUBLIC_ROUTES = [
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/forgot-password/verify-otp",
+  "/forgot-password/create-password",
+];
 
 export default async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });

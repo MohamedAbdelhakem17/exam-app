@@ -1,11 +1,10 @@
 import { AppBreadcrumb, PageHeader } from "@/components/shared";
-import { BookOpenCheck } from "lucide-react";
-import React from "react";
-import ExamList from "./_components/exam-list";
 import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
 import { getToken } from "@/lib/utils/get-token";
+import { BookOpenCheck } from "lucide-react";
 import { redirect } from "next/navigation";
 import DiplomasNotFound from "../../not-found";
+import ExamList from "./_components/exam-list";
 
 type PageProps = {
   params: { subject_id: string };
@@ -27,7 +26,7 @@ export default async function ExamPage({ params: { subject_id } }: PageProps) {
         token: token?.token,
         ...REQUEST_HEADERS,
       },
-    }
+    },
   );
 
   // Variables

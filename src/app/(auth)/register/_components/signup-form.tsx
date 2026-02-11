@@ -16,7 +16,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { ApiFeedback, AuthLink } from "../../_components";
+import { ApiFeedback } from "@/components/shared";
+import { AuthLink } from "../../_components";
 import useRegister from "../_hooks/use-register";
 import { PhoneInput } from "./phone-input";
 

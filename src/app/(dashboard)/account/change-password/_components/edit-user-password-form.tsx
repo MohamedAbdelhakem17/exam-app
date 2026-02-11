@@ -1,25 +1,24 @@
 "use client";
+import { ApiFeedback, AppToaster } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormItem,
   FormField,
+  FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   editUserPasswordSchema,
   EditUserPasswordValues,
 } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import useEditPassword from "../../_hooks/use-edit-password";
-import { ApiError } from "@/app/(auth)/_components";
-import { toast } from "sonner";
-import { AppToaster } from "@/components/shared";
 import { useSession } from "next-auth/react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import useEditPassword from "../../_hooks/use-edit-password";
 
 export default function EditUserPasswordForm() {
   // hook
@@ -105,7 +104,7 @@ export default function EditUserPasswordForm() {
         />
 
         {/* Api  feedback */}
-        {error && <ApiError>{error?.message}</ApiError>}
+        {error && <ApiFeedback>{error?.message}</ApiFeedback>}
 
         {/* Submit button */}
         <Button

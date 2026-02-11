@@ -41,7 +41,7 @@ export interface ButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
-  pending: boolean;
+  pending?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -64,11 +64,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {/* Label */}
-        {children}
+        <>
+          {/* Label */}
+          {children}
 
-        {/* Loading State  */}
-        {pending && <Loader2 className="animate-spin ms-2" />}
+          {/* Loading State  */}
+          {pending && <Loader2 className="animate-spin ms-2" />}
+        </>
       </Comp>
     );
   },

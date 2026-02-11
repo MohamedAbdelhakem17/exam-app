@@ -14,7 +14,6 @@ export default function SideBar() {
       return !prev;
     });
   };
-  console.log(isOpenSidebar);
   return (
     <>
       {/* Mobile Menu Button */}
@@ -38,7 +37,7 @@ export default function SideBar() {
       {/* Sidebar */}
       <aside
         className={cn(
-          "bg-blue-50 h-full w-md p-10 flex flex-col gap-y-16 lg:relative lg:translate-x-0 fixed top-0 left-0 z-50 transition-transform duration-300 ease-in-out",
+          "bg-blue-50 h-full w-80 py-10 px-5 flex flex-col gap-y-8 lg:relative lg:translate-x-0 fixed top-0 left-0 z-50 transition-transform duration-300 ease-in-out",
           isOpenSidebar
             ? "translate-x-0"
             : "-translate-x-full lg:translate-x-0",

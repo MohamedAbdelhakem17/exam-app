@@ -1,16 +1,14 @@
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 type CardProps = {
   subject: Subject;
-  key: string;
 };
 
-export default function SubjectsCard({ subject, key }: CardProps) {
+export default function SubjectsCard({ subject }: CardProps) {
   return (
-    <Link href={`/${subject._id}`} key={key}>
+    <Link href={`/${subject._id}`}>
       <Card className="col-span-1 relative overflow-hidden">
         {/* Image */}
         <CardContent className="p-0">

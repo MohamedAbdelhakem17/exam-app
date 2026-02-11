@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { EllipsisVertical, LogOut, UserRound } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import profileImage from "./profile-image.jpg";
-import { EllipsisVertical, LogOut, UserRound } from "lucide-react";
 
 export default function ProfileMenu() {
   // State to control dropdown menu visibility
@@ -38,7 +38,7 @@ export default function ProfileMenu() {
   return (
     <div
       ref={menuRef}
-      className="flex items-center justify-between w-full relative"
+      className="flex items-center justify-between w-full relative z-[99]"
     >
       {/* User Profile Section */}
       <div className="flex items-center gap-2.5">
@@ -67,14 +67,14 @@ export default function ProfileMenu() {
         type="button"
         aria-label="Open menu options"
         onClick={() => setIsMenuOpen((prev) => !prev)}
-        className="ml-2"
+        className="ml-2 px-2"
       >
         <EllipsisVertical className="w-5 h-5 text-gray-500" />
       </button>
 
       {/* Dropdown Menu */}
       {isMenuOpen && (
-        <ul className="absolute bottom-full left-full mt-2 w-64 bg-white  border divide-y-2">
+        <ul className="absolute left-0  -top-full md:mt-2 w-64 bg-white border shadow-lg divide-y z-[100] rounded-md overflow-hidden">
           {/* Account Link */}
           <li>
             <Link

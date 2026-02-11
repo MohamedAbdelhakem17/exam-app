@@ -1,7 +1,7 @@
 "use client";
 
-import { ApiError, AuthLink, FormLayout } from "@/app/(auth)/_components";
-import { AppToaster } from "@/components/shared";
+import { AuthLink, FormLayout } from "@/app/(auth)/_components";
+import { ApiFeedback, AppToaster } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,16 +11,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { InputOTP, InputOTPSlot } from "@/components/ui/input-otp";
+import { otpSchema, OtpValues } from "@/lib/schemes/auth.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { REGEXP_ONLY_DIGITS } from "input-otp";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import useSendOtp from "../../_hooks/use-send-otp";
-import { REGEXP_ONLY_DIGITS } from "input-otp";
-import { otpSchema, OtpValues } from "@/lib/schemes/auth.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import useVerifyOtp from "../../_hooks/use-verify-otp";
-import { useRouter } from "next/navigation";
 import BackLink from "../back-link";
 
 export default function VerifyOTP() {
@@ -56,7 +56,7 @@ export default function VerifyOTP() {
           ),
           {
             duration: 1000,
-          }
+          },
         );
 
         setTimeout(() => router.push("/forgot-password/create-password"), 1200);
@@ -82,7 +82,7 @@ export default function VerifyOTP() {
 
           updateTimer(60);
         },
-      }
+      },
     );
   };
 
@@ -188,10 +188,10 @@ export default function VerifyOTP() {
 
             {/* Api feedback */}
             {(resendOtpError || error) && (
-              <ApiError>
+              <ApiFeedback>
                 {(resendOtpError?.message as string) ||
                   (error?.message as string)}
-              </ApiError>
+              </ApiFeedback>
             )}
 
             {/* Verify code submit button */}

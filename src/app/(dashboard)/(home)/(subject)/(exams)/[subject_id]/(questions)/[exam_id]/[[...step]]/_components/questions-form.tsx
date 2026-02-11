@@ -1,6 +1,4 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,19 +9,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 
+import { ApiFeedback } from "@/components/shared";
 import {
   questionsSchema,
   questionsValues,
 } from "@/lib/schemes/questions.schema";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import ExamTimer from "./exam-timer";
-import useCheckQuestions from "../_hooks/use-check-questions";
-import { ApiError } from "@/app/(auth)/_components";
-import { useQuestions } from "../_hooks/use-questions";
-import { handleGoToExamResult } from "../_actions/check-questions.action";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { handleGoToExamResult } from "../_actions/check-questions.action";
+import useCheckQuestions from "../_hooks/use-check-questions";
+import { useQuestions } from "../_hooks/use-questions";
+import ExamTimer from "./exam-timer";
 
 export default function QuestionForm({ data }: { data: ExamData }) {
   // Navigation
@@ -78,7 +78,7 @@ export default function QuestionForm({ data }: { data: ExamData }) {
 
           router.replace(`/${subject_id}/${exam_id}/result`);
         },
-      }
+      },
     );
   };
 
@@ -152,7 +152,7 @@ export default function QuestionForm({ data }: { data: ExamData }) {
           )}
         />
         {/* Api feedback */}
-        {error && <ApiError>{error.message}</ApiError>}
+        {error && <ApiFeedback>{error.message}</ApiFeedback>}
 
         {/* Actions button */}
         <div className="flex justify-between items-center gap-4">

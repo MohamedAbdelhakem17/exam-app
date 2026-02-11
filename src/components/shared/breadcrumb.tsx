@@ -1,13 +1,12 @@
-import React, { Fragment } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
+import { Fragment } from "react";
 
 type BreadcrumbPath = {
   name: string;
@@ -27,9 +26,9 @@ export default function AppBreadcrumb({ paths = [] }: AppBreadcrumbProps) {
           <BreadcrumbPage>Home</BreadcrumbPage>
         ) : (
           <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link href="/">Home</Link>
-            </BreadcrumbLink>
+            <Link href="/" className="transition-colors hover:text-foreground">
+              Home
+            </Link>
           </BreadcrumbItem>
         )}
 
@@ -38,7 +37,7 @@ export default function AppBreadcrumb({ paths = [] }: AppBreadcrumbProps) {
 
           return (
             <Fragment key={index}>
-              <BreadcrumbSeparator> / </BreadcrumbSeparator>
+              <BreadcrumbSeparator />
 
               {isLast ? (
                 <BreadcrumbPage className="text-blue-600">
@@ -46,11 +45,12 @@ export default function AppBreadcrumb({ paths = [] }: AppBreadcrumbProps) {
                 </BreadcrumbPage>
               ) : (
                 <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link href={path.href as string}>
-                      {path.name as string}
-                    </Link>
-                  </BreadcrumbLink>
+                  <Link
+                    href={path.href || "/"}
+                    className="transition-colors hover:text-foreground"
+                  >
+                    {path.name}
+                  </Link>
                 </BreadcrumbItem>
               )}
             </Fragment>
