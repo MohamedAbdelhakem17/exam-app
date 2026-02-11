@@ -1,7 +1,7 @@
 "use client";
 
-import React, { createContext, ReactNode, useState } from "react";
 import { questionsValues } from "@/lib/schemes/questions.schema";
+import React, { createContext, ReactNode, useState } from "react";
 
 // Context Type
 export const QuestionsContext = createContext<{
@@ -54,11 +54,11 @@ export const QuestionsProvider = ({ children, questions }: ProviderProps) => {
   };
 
   const [answers, setAnswers] = useState<Answer[]>(() =>
-    getStorage<Answer[]>("answers", [])
+    getStorage<Answer[]>("answers", []),
   );
 
   const [currentIndex, setCurrentIndex] = useState<number>(() =>
-    getStorage<number>("currentIndex", 0)
+    getStorage<number>("currentIndex", 0),
   );
 
   const currentQuestion = questions[currentIndex];

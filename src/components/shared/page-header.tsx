@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { ChevronLeft, LucideProps } from "lucide-react";
+import Link from "next/link";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 
 interface PageHeaderProps {
@@ -30,7 +30,7 @@ export default function PageHeader({
       )}
 
       {/* Left Section (icon + title) */}
-      <div className="flex items-center gap-3 bg-blue-600 p-5  flex-1">
+      <div className="flex items-center gap-3 bg-blue-600 px-5 py-2  flex-1">
         <Icon className="w-11 h-11 text-white " />
         <h2 className="text-3xl text-white font-inter font-semibold ">
           {title}

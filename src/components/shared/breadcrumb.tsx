@@ -19,7 +19,7 @@ interface AppBreadcrumbProps {
 
 export default function AppBreadcrumb({ paths = [] }: AppBreadcrumbProps) {
   return (
-    <Breadcrumb className="p-3 bg-white">
+    <Breadcrumb className="px-3 py-1 bg-white">
       <BreadcrumbList>
         {/* Home */}
         {paths.length === 0 ? (

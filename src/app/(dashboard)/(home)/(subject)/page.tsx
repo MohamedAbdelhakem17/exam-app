@@ -1,9 +1,9 @@
-import SubjectsList from "./_components/subjects-list";
-import { GraduationCap } from "lucide-react";
 import { AppBreadcrumb, PageHeader } from "@/components/shared";
-import { getToken } from "@/lib/utils/get-token";
-import { redirect } from "next/navigation";
 import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
+import { getToken } from "@/lib/utils/get-token";
+import { GraduationCap } from "lucide-react";
+import { redirect } from "next/navigation";
+import SubjectsList from "./_components/subjects-list";
 import DiplomasNotFound from "./not-found";
 
 export default async function SubjectPage() {
@@ -22,7 +22,7 @@ export default async function SubjectPage() {
         token: token?.token,
         ...REQUEST_HEADERS,
       },
-    }
+    },
   );
 
   // Variables
@@ -31,7 +31,7 @@ export default async function SubjectPage() {
   return (
     <section className="flex flex-col gap-6 ">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-gray-50 space-y-6">
+      <header className="sticky top-0 z-10 bg-gray-50 space-y-3">
         {/* Breadcrumb */}
         <AppBreadcrumb />
 
