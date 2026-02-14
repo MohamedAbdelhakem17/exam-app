@@ -1,11 +1,13 @@
 "use server";
 
 import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
+import { SERVER_ENV } from "@/lib/env";
 import {
   CreatePasswordValues,
   ForgotPasswordValues,
   OtpValues,
   RegisterValues,
+  VerifyEmailValues,
 } from "@/lib/schemes/auth.schema";
 import {
   CreatePasswordResponse,
@@ -35,6 +37,24 @@ export async function register(data: RegisterValues) {
   });
 
   const payload: ApiResponse<RegisterResponse> = await response.json();
+
+  return payload;
+}
+
+// Handel Verify OTP
+export async function verifyEmail(data: VerifyEmailValues) {
+  const response = await fetch(
+    `${SERVER_ENV.BASE_API_URL}/auth/send-email-verification`,
+    {
+      method: "Post",
+      headers: {
+        ...REQUEST_HEADERS,
+      },
+      body: JSON.stringify(data),
+    },
+  );
+
+  const payload: ApiResponse<null> = await response.json();
 
   return payload;
 }

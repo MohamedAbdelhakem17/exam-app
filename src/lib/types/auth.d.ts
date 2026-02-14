@@ -1,4 +1,6 @@
-export type RegisterResponse = {
+import { REGISTER_STEEP } from "@/lib/constants/auth.constant";
+
+type RegisterResponse = {
   token: string;
   user: {
     username: string;
@@ -13,8 +15,17 @@ export type RegisterResponse = {
   };
 };
 
-export type ForgotPasswordResponse = {
+type ForgotPasswordResponse = {
   info: string;
 };
 
-export type CreatePasswordResponse = { token: string };
+type CreatePasswordResponse = { token: string };
+
+type RegisterStepsType = (typeof REGISTER_STEEP)[keyof typeof REGISTER_STEEP];
+
+export {
+  CreatePasswordResponse,
+  ForgotPasswordResponse,
+  RegisterResponse,
+  RegisterStepsType,
+};

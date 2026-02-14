@@ -1,4 +1,3 @@
-"client-only";
 const CLIENT_ENV_VARS = ["NEXT_PUBLIC_SITE_URL"] as const;
 
 type ClientEnvKey = (typeof CLIENT_ENV_VARS)[number];

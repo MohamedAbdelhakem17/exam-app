@@ -1,7 +1,7 @@
 "use client";
 
-import { PhoneInput } from "@/app/(auth)/register/_components/phone-input";
 import { ApiFeedback, AppToaster } from "@/components/shared";
+import { PhoneInput } from "@/components/shared/phone-input";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -72,7 +72,10 @@ export default function EditUserDataForm({ userData }: FormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="p-6 space-y-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="md:p-6 space-y-4 p-3"
+      >
         {/* Name fields */}
         <div className="flex items-center justify-center gap-2.5 w-full">
           <FormField

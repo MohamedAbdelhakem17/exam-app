@@ -1,4 +1,4 @@
-import "server-only";
+// import "server-only";
 
 const SERVER_ENV_VARS = [
   "NEXTAUTH_URL",

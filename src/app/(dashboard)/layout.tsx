@@ -1,4 +1,4 @@
-import SideBar from "./_components/side-bar";
+import SideBar from "./_components/sidebar";
 
 export default function RootLayout({
   children,
@@ -13,7 +13,10 @@ export default function RootLayout({
       </div>
 
       {/* Main content */}
-      <section className="lg:overflow-y-auto lg:h-screen flex-1 bg-gray-50 w-full ">
+      <section
+        id="dashboard-scroll"
+        className="lg:overflow-y-auto lg:h-screen flex-1 bg-gray-50 w-full "
+      >
         {children}
       </section>
     </main>

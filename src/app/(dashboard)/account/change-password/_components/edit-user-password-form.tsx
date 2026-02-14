@@ -57,7 +57,10 @@ export default function EditUserPasswordForm() {
   const { isValid, isSubmitted } = form.formState;
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="p-6 space-y-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="md:p-6 space-y-4 p-3 w-full"
+      >
         {/* Old password */}
         <FormField
           control={form.control}

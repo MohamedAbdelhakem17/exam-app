@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { FormLayout } from "../_components";
-import RegisterForm from "./_components/signup-form";
+import { AuthLink } from "../_components";
+import RegisterLayout from "./_components/register-layout";
 
 export const metadata: Metadata = {
   title: "Register",
@@ -9,9 +9,17 @@ export const metadata: Metadata = {
 export default function Register() {
   return (
     <section className="flex flex-col items-center justify-center min-h-screen">
-      <FormLayout label=" Create Account">
-        <RegisterForm />
-      </FormLayout>
+      {/* Form */}
+      <RegisterLayout />
+
+      {/* Footer */}
+      <div className="col-span-full">
+        <AuthLink
+          href="/login"
+          linkText="Login"
+          message="Already have an account? "
+        />
+      </div>
     </section>
   );
 }

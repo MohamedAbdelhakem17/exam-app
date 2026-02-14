@@ -1,4 +1,4 @@
-import { AppBreadcrumb, PageHeader } from "@/components/shared";
+import PageWrapper from "@/app/(dashboard)/_components/_layout/page-wrapper";
 import { UserRound } from "lucide-react";
 import AccountSidebar from "./_components/account-sidebar";
 
@@ -8,22 +8,17 @@ export default function AccountSettingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen flex flex-col bg-gray-50">
-      <div className="sticky top-0 z-10 bg-gray-50 space-y-6">
-        {/* Breadcrumb */}
-        <AppBreadcrumb paths={[{ name: "Account" }]} />
-
-        {/* Header */}
-        <PageHeader Icon={UserRound} title="Account Settings" back={true} />
-      </div>
-      {/* Main content */}
-      <section className="px-6 pb-6 flex gap-x-6 flex-1 mt-6">
-        {/* Sidebar */}
+    <PageWrapper
+      paths={[{ name: "Account" }]}
+      headerOptions={{ Icon: UserRound, title: "Account Settings", back: true }}
+    >
+      <div className="flex flex-col md:flex-row items-start  justify-center md:min-h-full w-full gap-4">
+        {/* sidebar */}
         <AccountSidebar />
 
         {/* Content */}
-        <div className="flex-1 ml-80 bg-white">{children}</div>
-      </section>
-    </main>
+        <section className="flex-1 bg-white w-full">{children}</section>
+      </div>
+    </PageWrapper>
   );
 }

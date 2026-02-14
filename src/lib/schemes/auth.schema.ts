@@ -45,7 +45,7 @@ export const registerSchema = z
       .min(8, "Min 8 characters")
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
       ),
 
     rePassword: z
@@ -107,3 +107,6 @@ export const editUserPasswordSchema = registerSchema
   });
 
 export type EditUserPasswordValues = z.infer<typeof editUserPasswordSchema>;
+
+export const VerifyEmailSchema = registerSchema.pick({ email: true });
+export type VerifyEmailValues = z.infer<typeof VerifyEmailSchema>;

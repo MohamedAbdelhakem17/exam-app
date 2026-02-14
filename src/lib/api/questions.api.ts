@@ -1,7 +1,7 @@
 "use server";
 
 import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
-import { SERVER_ENV } from "@/lib/env";
+import SERVER_ENV from "@/lib/env/server";
 import { getToken } from "@/lib/utils/get-token";
 import "server-only";
 

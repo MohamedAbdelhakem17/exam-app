@@ -1,7 +1,7 @@
 "use client";
 
 import { AuthLink, FormLayout } from "@/app/(auth)/_components";
-import { ApiFeedback, AppToaster } from "@/components/shared";
+import { ApiFeedback, AppToaster, InputOtpSlot } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,10 +10,8 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { InputOTP, InputOTPSlot } from "@/components/ui/input-otp";
 import { otpSchema, OtpValues } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { REGEXP_ONLY_DIGITS } from "input-otp";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -143,20 +141,11 @@ export default function VerifyOTP() {
                 <FormItem>
                   {/* Input */}
                   <FormControl>
-                    <InputOTP
-                      maxLength={6}
-                      pattern={REGEXP_ONLY_DIGITS}
-                      {...field}
-                    >
-                      {/* Input slots */}
-                      {Array.from({ length: 6 }).map((_, index) => (
-                        <InputOTPSlot
-                          key={index}
-                          index={index}
-                          isError={Boolean(resetCode)}
-                        />
-                      ))}
-                    </InputOTP>
+                    <InputOtpSlot
+                      length={6}
+                      isError={Boolean(resetCode)}
+                      field={field}
+                    />
                   </FormControl>
 
                   {/* Feedback */}

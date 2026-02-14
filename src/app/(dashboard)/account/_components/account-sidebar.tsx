@@ -1,16 +1,15 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { CircleUserRound, Lock, LogOutIcon } from "lucide-react";
-import React from "react";
 import Link from "next/link";
-import { LinkType } from "../../_components/side-bar/menu";
 import { usePathname } from "next/navigation";
+import { LinkType } from "../../_components/sidebar/menu";
 
 const MenuLinks = ({ path, label, Icon, isActive }: LinkType) => {
   return (
     <Link
       href={path}
-      className={`flex items-center gap-2.5  ease-linear font-normal text-base p-2  mb-2.5
+      className={`flex items-center gap-2.5 ease-linear font-normal text-base p-2  md:mb-2.5 h-full md:h-fit
         ${
           isActive
             ? "text-blue-600 bg-blue-50"
@@ -19,7 +18,7 @@ const MenuLinks = ({ path, label, Icon, isActive }: LinkType) => {
         `}
     >
       <Icon className="w-6 h-6" />
-      <span>{label}</span>
+      <span className="hidden md:block">{label}</span>
     </Link>
   );
 };
@@ -43,9 +42,9 @@ export default function AccountSidebar() {
   ];
 
   return (
-    <aside className="w-72 flex flex-col justify-between p-6 bg-white fixed bottom-6 top-side-top">
+    <aside className="md:w-72 w-full flex md:flex-col flex-row justify-between md:p-6 p-2 bg-white md:h-full">
       {/* Menu */}
-      <ul>
+      <ul className="md:block flex gap-x-3 items-center">
         {LINKS.map((link, index) => {
           const isActive = pathname === link.path;
           return (
@@ -57,9 +56,15 @@ export default function AccountSidebar() {
       </ul>
 
       {/* Logout button */}
-      <Button variant={"red"} className="flex items-center justify-start py-6">
+      <Button
+        variant={"red"}
+        className="flex items-center justify-start py-6 w-fit md:w-full"
+      >
+        {/* Icon */}
         <LogOutIcon className="rotate-180" />
-        <span>Logout</span>
+
+        {/* Label */}
+        <span className="hidden md:block">Logout</span>
       </Button>
     </aside>
   );

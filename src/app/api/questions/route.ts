@@ -1,5 +1,5 @@
 import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
-import { SERVER_ENV } from "@/lib/env";
+import SERVER_ENV from "@/lib/env/server";
 import { authApiWrapper } from "@/lib/utils/auth-api-wrapper";
 
 import { NextRequest, NextResponse } from "next/server";
