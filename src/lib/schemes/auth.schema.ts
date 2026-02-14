@@ -3,8 +3,8 @@ import { z } from "zod";
 
 // Login Schema
 export const loginSchema = z.object({
-  email: z
-    .email("Please enter a valid email address (e.g. name@example.com)")
+  username: z
+    .string("Please enter username")
     .nonempty("Email field cannot be left blank"),
 
   password: z

@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import NextAuth, { User } from "next-auth";
-import { JWT } from "next-auth/jwt";
+import { User } from "next-auth";
+import "next-auth/jwt";
 
 declare module "next-auth" {
   interface User {
-    _id: string;
+    id: string;
     username: string;
     firstName: string;
     lastName: string;
     email: string;
     phone: string;
     role: string;
+    emailVerified: boolean | null;
+    phoneVerified: boolean | null;
     token: string;
   }
 

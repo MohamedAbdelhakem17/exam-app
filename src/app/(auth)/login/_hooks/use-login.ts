@@ -12,11 +12,12 @@ const useLogin = () => {
 
     mutationFn: async (data: LoginValues) => {
       const response = await signIn("credentials", {
-        email: data?.email,
+        username: data?.username,
         password: data?.password,
         redirect: false,
       });
 
+      console.log("Login response:", response);
       if (response?.error) {
         throw new Error("not able to login with provided credentials.");
       } else if (!response?.ok) {
