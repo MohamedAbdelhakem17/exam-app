@@ -53,8 +53,7 @@ export default function VerifyEmail({ setStep, email, setEmail }: FormProps) {
 
           // success alert
           toast.success(
-            res?.message ||
-              "Registration completed successfully. You can now log in.",
+            res?.message || "Verification code sent to your email.",
             {
               duration: 700,
               onAutoClose: () => {
@@ -95,7 +94,10 @@ export default function VerifyEmail({ setStep, email, setEmail }: FormProps) {
           />
 
           {/* Api Feedback */}
-          <ApiFeedback>{error?.errors[0]?.message as string}</ApiFeedback>
+          <ApiFeedback>
+            {(error?.errors?.[0]?.message as string) ||
+              (error?.message as string)}
+          </ApiFeedback>
 
           {/* Submit  */}
           <Button

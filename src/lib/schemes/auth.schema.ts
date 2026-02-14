@@ -48,12 +48,12 @@ export const registerSchema = z
         "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
       ),
 
-    rePassword: z
+    confirmPassword: z
       .string()
       .nonempty("Confirm password is required")
       .min(8, "Min 8 characters"),
   })
-  .refine((data) => data.password === data.rePassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
     path: ["confirmPassword"],
   });
@@ -110,3 +110,11 @@ export type EditUserPasswordValues = z.infer<typeof editUserPasswordSchema>;
 
 export const VerifyEmailSchema = registerSchema.pick({ email: true });
 export type VerifyEmailValues = z.infer<typeof VerifyEmailSchema>;
+
+export const ConfirmEmailSchema = z.object({
+  email: z.string(),
+  code: z
+    .string()
+    .min(6, { message: "Your one‑time password must be 6 characters." }),
+});
+export type ConfirmEmailValues = z.infer<typeof ConfirmEmailSchema>;

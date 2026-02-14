@@ -3,6 +3,7 @@
 import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
 import { SERVER_ENV } from "@/lib/env";
 import {
+  ConfirmEmailValues,
   CreatePasswordValues,
   ForgotPasswordValues,
   OtpValues,
@@ -19,15 +20,13 @@ import { cookies } from "next/headers";
 
 // Handel Register
 export async function register(data: RegisterValues) {
-  const url = process.env.BASE_API_URL + "/auth/signup";
-
   const phone = parsePhoneNumberFromString(data.phone);
 
   if (phone?.isValid()) {
     data.phone = 0 + phone.nationalNumber;
   }
 
-  const response = await fetch(url, {
+  const response = await fetch(`${SERVER_ENV.BASE_API_URL}/auth/register`, {
     method: "POST",
     headers: {
       ...REQUEST_HEADERS,
@@ -38,6 +37,8 @@ export async function register(data: RegisterValues) {
 
   const payload: ApiResponse<RegisterResponse> = await response.json();
 
+  console.log(payload);
+
   return payload;
 }
 
@@ -45,6 +46,23 @@ export async function register(data: RegisterValues) {
 export async function verifyEmail(data: VerifyEmailValues) {
   const response = await fetch(
     `${SERVER_ENV.BASE_API_URL}/auth/send-email-verification`,
+    {
+      method: "Post",
+      headers: {
+        ...REQUEST_HEADERS,
+      },
+      body: JSON.stringify(data),
+    },
+  );
+
+  const payload: ApiResponse<null> = await response.json();
+
+  return payload;
+}
+// Handel Verify OTP
+export async function confirmEmail(data: ConfirmEmailValues) {
+  const response = await fetch(
+    `${SERVER_ENV.BASE_API_URL}/auth/confirm-email-verification`,
     {
       method: "Post",
       headers: {
