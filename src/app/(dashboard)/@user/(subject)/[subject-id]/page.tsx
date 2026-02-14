@@ -1,4 +1,4 @@
-import DiplomasNotFound from "@/app/(dashboard)/(subject)/not-found";
+import DiplomasNotFound from "@/app/(dashboard)/@user/(subject)/not-found";
 import PageWrapper from "@/app/(dashboard)/_components/_layout/page-wrapper";
 import { REQUEST_HEADERS } from "@/lib/constants/request-headers.constant";
 import { getToken } from "@/lib/utils/get-token";

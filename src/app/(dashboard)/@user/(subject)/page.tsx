@@ -1,7 +1,7 @@
 import { getToken } from "@/lib/utils/get-token";
 import { GraduationCap } from "lucide-react";
 import { redirect } from "next/navigation";
-import PageWrapper from "./../_components/_layout/page-wrapper";
+import PageWrapper from "../../_components/_layout/page-wrapper";
 import SubjectsList from "./_components/subjects-list";
 
 export default async function SubjectPage() {

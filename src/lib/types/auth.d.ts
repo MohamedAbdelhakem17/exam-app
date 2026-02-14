@@ -1,17 +1,19 @@
 import { REGISTER_STEEP } from "@/lib/constants/auth.constant";
 
 type RegisterResponse = {
-  token: string;
-  user: {
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    role: string;
-    isVerified: boolean;
-    _id: string;
-    createdAt: "string";
+  payload: {
+    token: string;
+    user: {
+      id: string;
+      username: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+      phone: string;
+      role: string;
+      emailVerified: boolean;
+      phoneVerified: boolean;
+    };
   };
 };
 

@@ -2,8 +2,8 @@
 
 import { useExamSession } from "@/hooks/use-exam-session";
 import { useState } from "react";
-import ExamResult from "./../_steps/exam-result";
-import QuestionsForm from "./../_steps/questions-form";
+import ExamResult from "../_steps/exam-result";
+import QuestionsForm from "../_steps/questions-form";
 import ExamHeader from "./exam-header";
 
 export default function QuestionsLayout({ data }: { data: ExamData }) {
