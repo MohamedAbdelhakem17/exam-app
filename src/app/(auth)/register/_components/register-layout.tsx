@@ -3,15 +3,16 @@
 import { REGISTER_STEEP } from "@/lib/constants/auth.constant";
 import { RegisterStepsType } from "@/lib/types/auth";
 import { useState } from "react";
+import ConfirmEmail from "./_steps/confirm-email";
 import RegisterForm from "./_steps/register-form";
 import VerifyEmail from "./_steps/verify-email";
 
 export default function RegisterLayout() {
   // State
-  const [email, setEmail] = useState<string | null>(null);
-  const [step, setStep] = useState<RegisterStepsType>(
-    REGISTER_STEEP.VERIFY_EMAIL,
+  const [email, setEmail] = useState<string | null>(
+    "mohamed.abdelhakem3200@gmail.com",
   );
+  const [step, setStep] = useState<RegisterStepsType>(REGISTER_STEEP.REGISTER);
 
   const steps = {
     [REGISTER_STEEP.VERIFY_EMAIL]: (
@@ -22,13 +23,9 @@ export default function RegisterLayout() {
       />
     ),
     [REGISTER_STEEP.CONFIRM_EMAIL]: (
-      <h2>
-        {" "}
-        Verify Email{" "}
-        <span onClick={() => setStep(REGISTER_STEEP.REGISTER)}>next</span>
-      </h2>
+      <ConfirmEmail setStep={setStep} email={email as string} />
     ),
-    [REGISTER_STEEP.REGISTER]: <RegisterForm />,
+    [REGISTER_STEEP.REGISTER]: <RegisterForm email={email as string} />,
   };
   return <>{steps[step]}</>;
 }

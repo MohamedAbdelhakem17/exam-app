@@ -21,7 +21,7 @@ import { PhoneInput } from "../../../../../components/shared/phone-input";
 import { FormLayout } from "../../../_components";
 import useRegister from "../../_hooks/use-register";
 
-export default function RegisterForm() {
+export default function RegisterForm({ email }: { email: string }) {
   // Navigation
   const router = useRouter();
 
@@ -34,10 +34,10 @@ export default function RegisterForm() {
       firstName: "",
       lastName: "",
       username: "",
-      email: "",
+      email: email,
       phone: "",
       password: "",
-      rePassword: "",
+      confirmPassword: "",
     },
 
     resolver: zodResolver(registerSchema),
@@ -194,7 +194,7 @@ export default function RegisterForm() {
           {/* Confirm Password */}
           <FormField
             control={form.control}
-            name="rePassword"
+            name="confirmPassword"
             render={({ field }) => (
               <FormItem className="col-span-full">
                 {/* Label */}
@@ -211,7 +211,11 @@ export default function RegisterForm() {
           />
 
           {/* Api feedback */}
-          <ApiFeedback>{error?.message}</ApiFeedback>
+          <ApiFeedback className="col-span-full">
+            {error?.errors
+              ?.map((error: { message: string }) => error.message)
+              .join(" ") || (error?.message as string)}
+          </ApiFeedback>
 
           {/* Submit */}
           <Button
