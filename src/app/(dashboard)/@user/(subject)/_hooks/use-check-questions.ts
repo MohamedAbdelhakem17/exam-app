@@ -1,4 +1,4 @@
-import { checkQuestions } from "@/app/(dashboard)/(subject)/_actions/check-questions.action";
+import { checkQuestions } from "@/app/(dashboard)/@user/(subject)/_actions/check-questions.action";
 import { useMutation } from "@tanstack/react-query";
 
 export default function useCheckQuestions() {

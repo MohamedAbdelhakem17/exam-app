@@ -14,13 +14,13 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-import useCheckQuestions from "@/app/(dashboard)/(subject)/_hooks/use-check-questions";
+import useCheckQuestions from "@/app/(dashboard)/@user/(subject)/_hooks/use-check-questions";
 import { ApiFeedback } from "@/components/shared";
 import {
   questionsSchema,
   questionsValues,
 } from "@/lib/schemes/questions.schema";
-import ExamTimer from "./../exam-timer";
+import ExamTimer from "../exam-timer";
 
 type QuestionsFormProps = {
   currentQuestion: QuestionType;

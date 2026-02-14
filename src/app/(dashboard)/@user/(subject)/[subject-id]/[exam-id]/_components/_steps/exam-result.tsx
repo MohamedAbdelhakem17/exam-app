@@ -1,6 +1,6 @@
 "use client";
 
-import { handleExamResult } from "@/app/(dashboard)/(subject)/_actions/check-questions.action";
+import { handleExamResult } from "@/app/(dashboard)/@user/(subject)/_actions/check-questions.action";
 import { Button } from "@/components/ui/button";
 import {
   ChartConfig,

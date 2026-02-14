@@ -1,10 +1,27 @@
+import { authOption } from "@/auth";
+import SYSTEM_ROLES from "@/lib/constants/system-roles";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import SideBar from "./_components/sidebar";
 
-export default function RootLayout({
-  children,
+export default async function RootLayout({
+  user,
+  admin,
 }: Readonly<{
-  children: React.ReactNode;
+  user: React.ReactNode;
+  admin: React.ReactNode;
 }>) {
+  // Get user session
+  const session = await getServerSession(authOption);
+
+  // If not Found user session
+  if (!session) {
+    redirect("/login");
+  }
+
+  // Detect User Role
+  const isAdmin = session.role === SYSTEM_ROLES.ADMIN;
+
   return (
     <main className="min-h-screen flex">
       {/* Sidebar - fixed on mobile, sticky on desktop */}
@@ -17,7 +34,7 @@ export default function RootLayout({
         id="dashboard-scroll"
         className="lg:overflow-y-auto lg:h-screen flex-1 bg-gray-50 w-full "
       >
-        {children}
+        {isAdmin ? admin : user}
       </section>
     </main>
   );

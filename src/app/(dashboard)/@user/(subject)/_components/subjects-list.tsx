@@ -47,9 +47,8 @@ export default function SubjectsList() {
   if (allSubjects.length === 0) {
     return (
       <ContentFallback
-        title="No Exams Found"
-        description="There are no exams available for this subject right now."
-        link={{ href: "/", label: "Back to Home" }}
+        title="No Diplomas Found"
+        description="There are no Diplomas available for  right now."
       />
     );
   }

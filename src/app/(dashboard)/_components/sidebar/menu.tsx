@@ -1,6 +1,9 @@
 "use client";
 
-import { GraduationCap, LucideProps, UserRound } from "lucide-react";
+import LINKS from "@/lib/constants/navigation.constant";
+import SYSTEM_ROLES from "@/lib/constants/system-roles";
+import { LucideProps } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
@@ -37,37 +40,28 @@ export default function Menu() {
   // Navigation
   const pathname = usePathname();
 
-  // variables
-  const LINKS: Omit<LinkType, "isActive">[] = [
-    {
-      path: "/",
-      label: "Diplomas",
-      Icon: GraduationCap,
-    },
-    {
-      path: "/account",
-      label: "Account Settings",
-      Icon: UserRound,
-    },
-  ];
+  const { data: session } = useSession();
 
+  const role = session?.role as keyof typeof SYSTEM_ROLES | undefined;
   return (
     <div className="flex-1  flex flex-col justify-between">
       {/* Links */}
       <ul>
-        {LINKS.map((link, index) => {
-          const isActive =
-            link.path === "/"
-              ? pathname === "/" || !pathname.startsWith("/account")
-              : pathname.startsWith(link.path);
+        {LINKS.filter((link) => role && link.roles.includes(role)).map(
+          (link, index) => {
+            const isActive =
+              link.path === "/"
+                ? pathname === "/" || !pathname.startsWith("/account")
+                : pathname.startsWith(link.path);
 
-          return (
-            // Link
-            <li key={index}>
-              <MenuLinks {...link} isActive={isActive} />
-            </li>
-          );
-        })}
+            return (
+              // Link
+              <li key={index}>
+                <MenuLinks {...link} isActive={isActive} />
+              </li>
+            );
+          },
+        )}
       </ul>
 
       {/* Profile */}

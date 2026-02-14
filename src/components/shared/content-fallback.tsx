@@ -8,7 +8,7 @@ import Link from "next/link";
 type ContentFallbackProps = {
   title: string;
   description: string;
-  link: {
+  link?: {
     href: string;
     label: string;
   };
@@ -55,9 +55,11 @@ export default function ContentFallback({
       </p>
 
       {/* Back to home action */}
-      <Button className="mt-6 bg-slate-900 text-white hover:bg-slate-800">
-        <Link href={link.href}>{link.label}</Link>
-      </Button>
+      {link && (
+        <Button className="mt-6 bg-slate-900 text-white hover:bg-slate-800">
+          <Link href={link.href}>{link.label}</Link>
+        </Button>
+      )}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { CircleUserRound, Lock, LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LinkType } from "../../_components/sidebar/menu";
+import { LinkType } from "../../../_components/sidebar/menu";
 
 const MenuLinks = ({ path, label, Icon, isActive }: LinkType) => {
   return (
